@@ -1,12 +1,7 @@
-<body>
-    <div class="wrapper fadeInDown">
-        <div id="formContent">
-          <h2 class="active" > Usuario </h2>
-          <h2 class="inactive" (click)="especialista()"> Especialista </h2>
-      
-          <div class="fadeIn first">
-            <img src="../../../assets/logos/icons8-usuario-masculino-en-círculo-100.png" style="width: 100px;" id="icon" alt="User Icon" />
-          </div>
+
+
+          <h3 class="center"> ALTA USUARIO </h3>
+
           <br><br>
           <form class="needs-validation padding" [formGroup]="forma" (ngSubmit)="Registrar()">
             <div class="row g-3">
@@ -145,10 +140,7 @@
             </div>
   
             <hr class="my-4">
-            <button type="submit"  [disabled]="forma.invalid" class="fadeIn fourth boton-Agregar" >Registrar</button>
-            <p>¿Ya tienes una cuenta? <b (click)="ingresar()">Ingresa</b></p>
+            <button type="submit"  [disabled]="forma.invalid" class="fadeIn fourth boton-Agregar cursor" >Registrar</button>
           </form>
-        </div>
-      </div>
-</body>
+
 

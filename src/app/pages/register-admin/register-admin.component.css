@@ -8,7 +8,6 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-
   background-image: url('../../../assets/img/nurse.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -53,7 +52,6 @@ h2 {
     background-color: #1680be;
     transform: translateY(-4px);
 }
-
 
 .boton-Agregar
 {
@@ -111,7 +109,8 @@ h2 {
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
- 
+  align-items: center;
+  align-content: center;
 }
 
 .border
@@ -130,10 +129,6 @@ h2 {
   border-radius: 0 0 10px 10px;
 }
 
-.cursor
-{
-  cursor:pointer;
-}
 
 
 /* TABS */

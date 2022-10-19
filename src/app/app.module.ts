@@ -16,6 +16,10 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { ToastrModule } from 'ngx-toastr';
 import { RegistroEspecialistaComponent } from './pages/registro-especialista/registro-especialista.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { LogRegBaseComponent } from './pages/log-reg-base/log-reg-base.component';
+import { RegisterAdminComponent } from './pages/register-admin/register-admin.component';
+import { RegistrosComponent } from './componentes/registros/registros.component';
+import { ListadoUsuariosComponent } from './componentes/listado-usuarios/listado-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
     RegisterComponent,
     InicioComponent,
     RegistroEspecialistaComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    LogRegBaseComponent,
+    RegisterAdminComponent,
+    RegistrosComponent,
+    ListadoUsuariosComponent
   ],
   imports: [
     BrowserModule,

@@ -57,7 +57,31 @@ export class LoginComponent implements OnInit {
 
   registrar()
   {
-    this.router.navigateByUrl("registrar")
+    this.router.navigateByUrl("registro")
+  }
+
+  usuario()
+  {
+    this.forma.setValue({
+      email:"PedroPerez@gmail.com",
+      contrasena:"123456"
+    });
+  }
+
+  admin()
+  {
+    this.forma.setValue({
+      email:"mairaGomez@gmail.com",
+      contrasena:"123456"
+    });
+  }
+
+  especialista()
+  {
+    this.forma.setValue({
+      email:"franszellner@gmail.com",
+      contrasena:"123456"
+    });
   }
 
 }

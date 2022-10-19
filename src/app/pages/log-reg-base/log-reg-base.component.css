@@ -8,50 +8,10 @@ html {
 
 body {
   font-family: "Poppins", sans-serif;
-
   background-image: url('../../../assets/img/nurse.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-}
-
-.center
-{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    color: darkcyan;
-    text-align: center;
-    align-items: center;
-    align-content: center;
-}
-
-.rojo
-{
-  color: red;
-}
-
-a {
-  color: #92badd;
-  display:inline-block;
-  text-decoration: none;
-  font-weight: 400;
-}
-
-h2 {
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  display:inline-block;
-  margin: 40px 8px 10px 8px; 
-  color: #cccccc;
-}
-
-.boton-Agregar:hover
-{
-    background-color: #1680be;
-    transform: translateY(-4px);
 }
 
 
@@ -80,14 +40,52 @@ h2 {
 }
 
 
+.celeste
+{
+  background-color: #39ace7;
+
+}
+
+.rojo
+{
+  background-color:red;
+
+}
+
+.texto_rojo
+{
+  color: red;
+}
+
+
+.border
+{
+  border-style: solid;
+  border-width: 1px;
+  border-color: gray;
+}
+
+
+a {
+  color: #92badd;
+  display:inline-block;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+h2 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  margin: 40px 8px 10px 8px; 
+  color: #cccccc;
+}
+
+
 
 /* STRUCTURE */
-
-.padding
-{
-  padding-left: 10%;
-  padding-right: 10%;
-}
 
 .wrapper {
   display: flex;
@@ -103,22 +101,14 @@ h2 {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;
   background: #fff;
-  padding: 60px;
+  padding: 30px;
   width: 90%;
-  max-width: 850px;
+  max-width: 450px;
   position: relative;
   padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
- 
-}
-
-.border
-{
-  border-style: solid;
-  border-width: 1px;
-  border-color: gray;
 }
 
 #formFooter {
@@ -130,10 +120,6 @@ h2 {
   border-radius: 0 0 10px 10px;
 }
 
-.cursor
-{
-  cursor:pointer;
-}
 
 
 /* TABS */
@@ -145,7 +131,6 @@ h2.inactive {
 h2.active {
   color: #0d0d0d;
   border-bottom: 2px solid #5fbae9;
-  cursor:pointer;
 }
 
 
@@ -186,11 +171,11 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text],input[type=password],input[type=file] {
+input[type=text],[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
-  padding: 8px 15px;
+  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -334,55 +319,4 @@ input[type=text]:placeholder {
 
 * {
   box-sizing: border-box;
-}
-
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
-}
-
-.b-example-divider {
-  height: 3rem;
-  background-color: rgba(0, 0, 0, .1);
-  border: solid rgba(0, 0, 0, .15);
-  border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-}
-
-.b-example-vr {
-  flex-shrink: 0;
-  width: 1.5rem;
-  height: 100vh;
-}
-
-.bi {
-  vertical-align: -.125em;
-  fill: currentColor;
-}
-
-.nav-scroller {
-  position: relative;
-  z-index: 2;
-  height: 2.75rem;
-  overflow-y: hidden;
-}
-
-.nav-scroller .nav {
-  display: flex;
-  flex-wrap: nowrap;
-  padding-bottom: 1rem;
-  margin-top: -1px;
-  overflow-x: auto;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
 }

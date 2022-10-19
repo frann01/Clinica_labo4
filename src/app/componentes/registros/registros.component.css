@@ -15,17 +15,6 @@ body {
   background-attachment: fixed;
 }
 
-.center
-{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    color: darkcyan;
-    text-align: center;
-    align-items: center;
-    align-content: center;
-}
-
 .rojo
 {
   color: red;
@@ -46,12 +35,6 @@ h2 {
   display:inline-block;
   margin: 40px 8px 10px 8px; 
   color: #cccccc;
-}
-
-.boton-Agregar:hover
-{
-    background-color: #1680be;
-    transform: translateY(-4px);
 }
 
 
@@ -134,7 +117,6 @@ h2 {
 {
   cursor:pointer;
 }
-
 
 /* TABS */
 

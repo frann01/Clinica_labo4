@@ -1,0 +1,123 @@
+<div>
+    <div class="fadeIn first center" >
+        <h3 class="center"> ALTA ADMIN </h3>
+        </div>
+        <br><br>
+        <form class="needs-validation padding" [formGroup]="forma" (ngSubmit)="Registrar()">
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Nombre</label>
+              <input type="text" class="form-control border" formControlName="nombre" placeholder="Nombre"  reuired>
+              <small class="invalid rojo"
+              *ngIf="forma.controls.nombre.errors?.required &&
+              forma.controls.nombre.touched">
+              El nombre es requerido
+            </small>
+            <small class="invalid rojo"
+            *ngIf="forma.controls.nombre.errors?.containsSpaces &&
+            forma.controls.nombre.touched">
+            El nombre no puede contener espacios
+          </small>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="lastName" class="form-label">Apellido</label>
+              <input type="text" class="form-control border" formControlName="apellido" placeholder="Apellido" >
+              <small class="invalid rojo"
+              *ngIf="forma.controls.apellido.errors?.required &&
+              forma.controls.apellido.touched">
+              El apellido es requerido
+            </small>
+            <small class="invalid rojo"
+            *ngIf="forma.controls.apellido.errors?.containsSpaces &&
+            forma.controls.apellido.touched">
+            El apellido no puede contener espacios
+          </small>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Edad</label>
+              <input type="text" formControlName="edad" class="form-control border"  placeholder="Edad" >
+              <small class="invalid rojo"
+              *ngIf="forma.controls.edad.errors?.required &&
+              forma.controls.edad.touched">
+              La edad es requerida
+            </small>
+            <small class="invalid rojo"
+            *ngIf="forma.controls.edad.errors?.min || 
+            forma.controls.edad.errors?.max &&
+            forma.controls.edad.touched">
+            La edad debe ser de 18 a 99 años
+          </small>
+          <small class="invalid rojo"
+              *ngIf="
+              forma.controls.edad.errors?.pattern &&
+              forma.controls.edad.touched">
+              La edad solo puede contener numeros
+            </small>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Documento</label>
+              <input type="text" class="form-control border" formControlName="dni" placeholder="Documento" >
+              <small class="invalid rojo"
+              *ngIf="forma.controls.dni.errors?.required &&
+              forma.controls.dni.touched">
+              El dni es requerido
+            </small>
+          <small class="invalid rojo"
+              *ngIf="
+              forma.controls.dni.errors?.pattern &&
+              forma.controls.dni.touched">
+              El dni solo puede contener numeros
+            </small>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" formControlName="email" placeholder="vos@ejemplo.com">
+              <small class="invalid rojo"
+              *ngIf="forma.controls.email.errors?.required &&
+              forma.controls.email.touched">
+              El email es requerido
+            </small>
+            <small class="invalid rojo"
+            *ngIf="forma.controls.email.errors?.containsSpaces &&
+            forma.controls.email.touched">
+            El email no puede contener espacios
+          </small>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="firstName" class="form-label">Contraseña</label>
+              <input type="password" class="form-control border" formControlName="contrasena" placeholder="Contraseña">
+              <small class="invalid rojo"
+              *ngIf="forma.controls.contrasena.errors?.required &&
+              forma.controls.contrasena.touched">
+              La contrasena es requerida
+            </small>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="email" class="form-label">Foto <span class="text-muted"></span></label>
+              <input style="color: white;" formControlName="foto" (change)="elegirFoto($event)" type="file" accept=".png,.jpg" />
+              <small class="invalid rojo"
+                  *ngIf="forma.controls.foto.errors?.required &&
+                  forma.controls.foto.touched">
+                  La Foto es requerida
+              </small>
+              <small class="invalid"
+                  *ngIf="foto">
+                  {{foto.name}}
+              </small>
+            </div>
+
+
+
+          </div>
+
+          <hr class="my-4">
+          <button type="submit"  [disabled]="forma.invalid" class="fadeIn fourth boton-Agregar center cursor" >Registrar</button>
+        </form>
+
+</div>

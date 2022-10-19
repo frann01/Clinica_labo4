@@ -19,11 +19,26 @@ export class AuthService {
   private noAprobados?: AngularFirestoreCollection<any>;
   public noAprobadosA= [];
 
+  private UsuariosColeccion?: AngularFirestoreCollection<any>;
+  public usuarios: any[] = [];
+
   constructor(private toastr: ToastrService,public afAuth : AngularFireAuth,public afs: AngularFirestore,private router: Router) 
   {
     afAuth.authState.subscribe( user => (this.isLogged = user))
   }
 
+  traerUsuarios()
+  {
+    this.UsuariosColeccion = this.afs.collection<any>('usuarios');
+    return this.UsuariosColeccion.valueChanges().subscribe(usuarios =>
+      {
+        this.usuarios=[];
+        usuarios.forEach(usuario => {
+          this.usuarios.unshift(usuario);
+        });
+
+      })
+  }
   
   async onLogin (user : any)
   {
@@ -143,7 +158,7 @@ export class AuthService {
             edad:user.edad,
             obra:user.obra,
             dni:user.dni,
-            foto1: foto1,
+            foto: foto1,
             foto2: foto2,
             uid:cred.user.uid,
             perfil:"paciente"
