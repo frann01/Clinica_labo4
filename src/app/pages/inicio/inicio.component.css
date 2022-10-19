@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+.logo
+{
+    height: 60%;
+    width: 70px;
+    margin-right: 3%;
+}
+
+html {
+  background-image: url('../../../assets/img/nurse.jpg');
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    height: 120vh;
+    background-image: url('../../../assets/img/nurse.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  
+  }
+
+.div_navbar
+{
+    -webkit-box-shadow: -1px 10px 49px -19px rgba(0,0,0,0.77);
+    -moz-box-shadow: -1px 10px 49px -19px rgba(0,0,0,0.77);
+    box-shadow: -1px 10px 49px -19px rgba(0,0,0,0.77);
+}
+
+li
+{
+
+    margin-right: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-weight: 700;
+    font-size: large;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+    
+}
+
+li:hover
+{
+    background-color: #1680be;
+    transform: translateY(-7px);
+}
+
+li:active {
+    transform: translateY(-1px);
+  }

@@ -1,0 +1,154 @@
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <h2 class="inactive" (click)="usuario()"> Usuario </h2>
+          <h2 class="active" > Especialista </h2>
+      
+          <div class="fadeIn first">
+            <img src="../../../assets/logos/icons8-usuario-masculino-en-círculo-100.png" style="width: 100px;" id="icon" alt="User Icon" />
+          </div>
+          <br><br>
+          <form class="needs-validation padding" [formGroup]="forma" (ngSubmit)="Registrar()">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">Nombre</label>
+                <input type="text" class="form-control border" formControlName="nombre" placeholder="Nombre"  reuired>
+                <small class="invalid texto_rojo"
+                *ngIf="forma.controls.nombre.errors?.required &&
+                forma.controls.nombre.touched">
+                El nombre es requerido
+              </small>
+              <small class="invalid texto_rojo"
+              *ngIf="forma.controls.nombre.errors?.containsSpaces &&
+              forma.controls.nombre.touched">
+              El nombre no puede contener espacios
+            </small>
+              </div>
+  
+              <div class="col-sm-6">
+                <label for="lastName" class="form-label">Apellido</label>
+                <input type="text" class="form-control border" formControlName="apellido" placeholder="Apellido" >
+                <small class="invalid texto_rojo"
+                *ngIf="forma.controls.apellido.errors?.required &&
+                forma.controls.apellido.touched">
+                El apellido es requerido
+              </small>
+              <small class="invalid texto_rojo"
+              *ngIf="forma.controls.apellido.errors?.containsSpaces &&
+              forma.controls.apellido.touched">
+              El apellido no puede contener espacios
+            </small>
+              </div>
+
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">Edad</label>
+                <input type="text" formControlName="edad" class="form-control border"  placeholder="Edad" >
+                <small class="invalid texto_rojo"
+                *ngIf="forma.controls.edad.errors?.required &&
+                forma.controls.edad.touched">
+                La edad es requerida
+              </small>
+              <small class="invalid texto_rojo"
+              *ngIf="forma.controls.edad.errors?.min || 
+              forma.controls.edad.errors?.max &&
+              forma.controls.edad.touched">
+              La edad debe ser de 18 a 99 años
+            </small>
+            <small class="invalid texto_rojo"
+                *ngIf="
+                forma.controls.edad.errors?.pattern &&
+                forma.controls.edad.touched">
+                La edad solo puede contener numeros
+              </small>
+              </div>
+
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">Documento</label>
+                <input type="text" class="form-control border" formControlName="dni" placeholder="Edad" >
+                <small class="invalid texto_rojo"
+                *ngIf="forma.controls.dni.errors?.required &&
+                forma.controls.dni.touched">
+                El dni es requerido
+              </small>
+            <small class="invalid texto_rojo"
+                *ngIf="
+                forma.controls.dni.errors?.pattern &&
+                forma.controls.dni.touched">
+                El dni solo puede contener numeros
+              </small>
+              </div>
+  
+              <div class="col-12">
+                <label for="email" class="form-label">Email </label>
+                <input type="email" class="form-control" formControlName="email" placeholder="vos@ejemplo.com">
+                <small class="invalid texto_rojo"
+                *ngIf="forma.controls.email.errors?.required &&
+                forma.controls.email.touched">
+                El email es requerido
+              </small>
+              <small class="invalid texto_rojo"
+              *ngIf="forma.controls.email.errors?.containsSpaces &&
+              forma.controls.email.touched">
+              El email no puede contener espacios
+            </small>
+              </div>
+
+
+              <div class="col-12">
+                <label for="firstName" class="form-label">Contraseña</label>
+                <input type="password" class="form-control border" formControlName="contrasena" placeholder="contraseña">
+                <small class="invalid texto_rojo"
+                *ngIf="forma.controls.contrasena.errors?.required &&
+                forma.controls.contrasena.touched">
+                La contrasena es requerida
+              </small>
+              </div>
+
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">Nueva especialidad</label>
+                <input type="text" class="form-control border" formControlName="especialidadNueva" placeholder="Especialidad" >
+              </div>
+
+              <div class="col-sm-6">
+                <div> 
+                  <button class="fadeIn fourth boton-Agregar " (click)="subirEspecialidad()" value="">Agregar</button>
+                </div>
+              </div>
+
+              <div class="div_botones">
+                <label  class="form-label">Especialidad <span class="text-muted"></span></label>
+
+                  <div class="segundo_div">
+                    <div *ngFor="let especialidad of base.especialidades">
+                      <button *ngIf="!especialidades.includes(especialidad.nombre)" class="fadeIn boton-especialidad celeste" (click)="agregarEspecialidad(especialidad.nombre)" value="">{{especialidad.nombre}}</button>
+                      <button *ngIf="especialidades.includes(especialidad.nombre)" class="fadeIn boton-especialidad rojo" (click)="quitarEspecialidad(especialidad.nombre)" value="">{{especialidad.nombre}}</button>
+                    </div>
+                  </div>
+                
+              </div>
+
+              <div class="col-12">
+                <label for="email" class="form-label">Foto <span class="text-muted"></span></label>
+                <input style="color: white;" formControlName="foto" (change)="elegirFoto($event)" type="file" accept=".png,.jpg" />
+                <small class="invalid texto_rojo"
+                    *ngIf="forma.controls.foto.errors?.required &&
+                    forma.controls.foto.touched">
+                    La Foto es requerida
+                </small>
+                <small class="invalid"
+                    *ngIf="foto">
+                    {{foto.name}}
+                </small>
+              </div>
+
+            </div>
+  
+            <hr class="my-4">
+            <button type="submit" [disabled]="forma.invalid" class="fadeIn fourth boton-Agregar" >Registrar</button>
+            <p>¿Ya tienes una cuenta? <b (click)="ingresar()">Ingresa</b></p>
+          </form>
+        </div>
+      </div>
+</body>
+
+

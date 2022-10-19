@@ -1,0 +1,34 @@
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+          <h2 class="active"> Ingresar </h2>
+
+          <div class="fadeIn first">
+            <img src="../../../assets/logos/icons8-usuario-masculino-en-círculo-100.png" style="width: 100px;" id="icon" alt="User Icon" />
+          </div>
+      
+          <form [formGroup]="forma" (ngSubmit)="Ingresar()">
+            <input type="text"  class="fadeIn second border" formControlName="email" placeholder="Email">
+            <small class="invalid texto_rojo"
+                *ngIf="forma.controls.email.errors?.required &&
+                forma.controls.email.touched">
+                El email es requerido
+              </small>
+
+
+            <input type="password"  class="fadeIn third border" formControlName="contrasena" placeholder="Contraseña">
+            <small class="invalid texto_rojo"
+                *ngIf="forma.controls.contrasena.errors?.required &&
+                forma.controls.contrasena.touched">
+                La contraseña es requerida
+              </small>
+            <br>
+
+            <button type="submit" [disabled]="forma.invalid" class="fadeIn fourth boton-Agregar" >Ingresar</button>
+          </form>
+          <br>
+          
+          <p>¿No tienes una cuenta? <b (click)="registrar()">Registrate</b></p>
+        </div>
+      </div>
+</body>
