@@ -85,7 +85,14 @@ export class RegistroEspecialistaComponent implements OnInit {
 
   agregarEspecialidad(esp : string)
   {
-    this.especialidades.push(esp)
+    if(esp != "")
+    {
+      this.especialidades.push(esp)
+    }
+    else
+    {
+      this.toastr.error("Debe ingresar una especialidad!", 'Error')
+    }
   }
   
   elegirFoto(event:any)

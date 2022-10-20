@@ -27,7 +27,6 @@ body {
   margin-left: auto;
   margin-right: auto;
   display: block;
-
   background-color: #56baed;
   border: none;
   color: white;
@@ -47,9 +46,28 @@ body {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
+
+.boton-Agregar:hover
+{
+    background-color: #1680be;
+    transform: translateY(-4px);
+}
+
+
+.boton_rapido:hover
+{
+    background-color: #1680be;
+    transform: translateY(-4px);
+}
+
 .cursor
 {
   cursor:pointer;
+}
+
+.first
+{
+  padding-bottom: 10%;
 }
 
 .texto_registrar
@@ -151,6 +169,7 @@ h2 {
   -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
   text-align: center;
+  padding-bottom: 2%;
 }
 
 #formFooter {

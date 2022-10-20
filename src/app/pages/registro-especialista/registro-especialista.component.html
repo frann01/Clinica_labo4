@@ -104,7 +104,7 @@
 
               <div class="col-sm-6">
                 <div> 
-                  <button class="fadeIn fourth boton-Agregar " (click)="subirEspecialidad()" value="">Agregar</button>
+                  <button class="fadeIn fourth boton-Agregar" type="button" (click)="subirEspecialidad()" value="">Agregar</button>
                 </div>
               </div>
 
@@ -113,8 +113,8 @@
 
                   <div class="segundo_div">
                     <div *ngFor="let especialidad of base.especialidades">
-                      <button *ngIf="!especialidades.includes(especialidad.nombre)" class="fadeIn boton-especialidad celeste" (click)="agregarEspecialidad(especialidad.nombre)" value="">{{especialidad.nombre}}</button>
-                      <button *ngIf="especialidades.includes(especialidad.nombre)" class="fadeIn boton-especialidad rojo" (click)="quitarEspecialidad(especialidad.nombre)" value="">{{especialidad.nombre}}</button>
+                      <button type="button" *ngIf="!especialidades.includes(especialidad.nombre)" class="fadeIn boton-especialidad celeste" (click)="agregarEspecialidad(especialidad.nombre)" value="">{{especialidad.nombre}}</button>
+                      <button type="button" *ngIf="especialidades.includes(especialidad.nombre)" class="fadeIn boton-especialidad rojo" (click)="quitarEspecialidad(especialidad.nombre)" value="">{{especialidad.nombre}}</button>
                     </div>
                   </div>
                 

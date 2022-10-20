@@ -23,9 +23,9 @@ const routes: Routes = [
     ]}
   ]},
 
-  {path:'inicio', component: InicioComponent/*, canActivate:[LoginGuard,EspecialistaGuard]*/, children:
+  {path:'inicio', component: InicioComponent, canActivate:[LoginGuard,EspecialistaGuard], children:
   [
-    {path:'usuarios', component: UsuariosComponent,/* canActivate:[AdminGuard],*/ children:[
+    {path:'usuarios', component: UsuariosComponent, canActivate:[AdminGuard], children:[
       {path:'usuario-registrar', component: RegisterComponent},
       {path:'admin-registrar', component: RegisterAdminComponent},
       {path:'especialista-registrar', component: RegistroEspecialistaComponent},

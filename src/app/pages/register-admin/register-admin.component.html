@@ -99,7 +99,7 @@
             </div>
 
             <div class="col-sm-6">
-              <label for="email" class="form-label">Foto <span class="text-muted"></span></label>
+              <label for="email" class="form-label">Foto</label>
               <input style="color: white;" formControlName="foto" (change)="elegirFoto($event)" type="file" accept=".png,.jpg" />
               <small class="invalid rojo"
                   *ngIf="forma.controls.foto.errors?.required &&
