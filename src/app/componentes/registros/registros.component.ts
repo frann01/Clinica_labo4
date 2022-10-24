@@ -18,9 +18,9 @@ export class RegistrosComponent implements OnInit {
     this.router.navigateByUrl("")
   }
 
-  usuario()
+  volver()
   {
-    this.router.navigateByUrl("registro")
+    this.router.navigateByUrl("/seleccion-registro")
   }
 
 }

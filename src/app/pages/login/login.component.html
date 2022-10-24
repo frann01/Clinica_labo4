@@ -2,8 +2,11 @@
         <div id="formContent">
           <h2 class="active cursor"> Ingresar </h2>
 
-          <div class="fadeIn first">
-            <img src="../../../assets/logos/icons8-usuario-masculino-en-círculo-100.png" style="width: 100px;" id="icon" alt="User Icon" />
+          <div class="fadeIn first div_botones">
+              <button *ngFor="let usuario of authService.usuariosLogin"
+               style="  background-image: url('{{usuario.foto}}');"
+              (click)="usuarioRapido(usuario)"
+              class="boton_rapido"></button>
           </div>
       
           <form [formGroup]="forma" (ngSubmit)="Ingresar()">
@@ -26,14 +29,6 @@
             <button type="submit" [disabled]="forma.invalid" class="fadeIn fourth boton-Agregar" >Ingresar</button>
           </form>
           <br>
-
-          <div class="div_botones">
-            <button class="boton_rapido" (click)="admin()">Admin</button>
-
-            <button class="boton_rapido" (click)="usuario()">Usuario</button>
-
-            <button class="boton_rapido" (click)="especialista()">Especialista</button>
-          </div>
 
           <p >¿No tienes una cuenta? <b class="cursor" (click)="registrar()">Registrate</b></p>
         </div>

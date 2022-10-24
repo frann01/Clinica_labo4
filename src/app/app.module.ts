@@ -20,6 +20,14 @@ import { LogRegBaseComponent } from './pages/log-reg-base/log-reg-base.component
 import { RegisterAdminComponent } from './pages/register-admin/register-admin.component';
 import { RegistrosComponent } from './componentes/registros/registros.component';
 import { ListadoUsuariosComponent } from './componentes/listado-usuarios/listado-usuarios.component';
+import { RegistroImgsComponent } from './componentes/registro-imgs/registro-imgs.component';
+import { BienvenidaComponent } from './pages/bienvenida/bienvenida.component';
+import { BotonInicioComponent } from './componentes/boton-inicio/boton-inicio.component';
+import { TituloPipe } from './pipes/titulo.pipe';
+import { PerfilPipe } from './pipes/perfil.pipe';
+import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
+import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
+import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +41,15 @@ import { ListadoUsuariosComponent } from './componentes/listado-usuarios/listado
     LogRegBaseComponent,
     RegisterAdminComponent,
     RegistrosComponent,
-    ListadoUsuariosComponent
+    ListadoUsuariosComponent,
+    RegistroImgsComponent,
+    BienvenidaComponent,
+    BotonInicioComponent,
+    TituloPipe,
+    PerfilPipe,
+    MiPerfilComponent,
+    MisTurnosComponent,
+    SolicitarTurnoComponent,
   ],
   imports: [
     BrowserModule,

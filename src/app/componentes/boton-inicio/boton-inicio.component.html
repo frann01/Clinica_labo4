@@ -1,0 +1,18 @@
+
+
+<div [ngSwitch]="auth.UsuarioActivo.perfil">
+    <div *ngSwitchCase="'paciente'">
+        <button class="boton_turnos cyan " routerLink="sacar-turno">Sacar Turno</button>
+        <button class="boton_turnos celeste" routerLink="mis-turnos">Mis Turnos</button>
+    </div>
+
+    <div *ngSwitchCase="'admin'">
+        <button class="boton_turnos cyan" routerLink="sacar-turno">Sacar Turno</button>
+        <button class="boton_turnos celeste" routerLink="usuarios">Usuarios</button>
+    </div>
+
+    <div *ngSwitchCase="'especialista'">
+        <button class="boton_turnos cyan" routerLink="mi-perfil">Mi Perfil</button>
+        <button class="boton_turnos celeste" routerLink="mis-turnos">Mis Turnos</button>
+    </div>
+ </div>

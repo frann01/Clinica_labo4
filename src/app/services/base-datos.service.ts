@@ -21,7 +21,6 @@ export class BaseDatosService {
         especialidades.forEach(esp => {
           this.especialidades.push(esp);
         });
-
       })
   }
 

@@ -16,15 +16,23 @@ export class AuthService {
   public isLogged: any = false;
   UsuarioActivo:any;
   uidUser="";
+
   private noAprobados?: AngularFirestoreCollection<any>;
   public noAprobadosA= [];
 
   private UsuariosColeccion?: AngularFirestoreCollection<any>;
   public usuarios: any[] = [];
 
+  private UsuariosLogin?: AngularFirestoreCollection<any>;
+  public usuariosLogin: any[] = [];
+
+  private Especialistas?: AngularFirestoreCollection<any>;
+  public especialistas: any[] = [];
+
   constructor(private toastr: ToastrService,public afAuth : AngularFireAuth,public afs: AngularFirestore,private router: Router) 
   {
     afAuth.authState.subscribe( user => (this.isLogged = user))
+    this.TraerUsuariosLogin()
   }
 
   traerUsuarios()
@@ -40,7 +48,7 @@ export class AuthService {
       })
   }
   
-  async onLogin (user : any)
+  async onLogin(user : any)
   {
     var retorno:any;
     retorno = await this.afAuth.signInWithEmailAndPassword(user.email, user.password)
@@ -51,7 +59,6 @@ export class AuthService {
       await (this.afs.collection('usuarios').doc(this.uidUser).get().toPromise().then(async (doc) =>{
         await this.afs.collection('usuarios').doc(this.uidUser).valueChanges().subscribe(async (usuario) =>{
           this.UsuarioActivo = usuario
-          console.log(this.UsuarioActivo);
           await localStorage.setItem('user', JSON.stringify(user));
         })
       }));
@@ -91,7 +98,9 @@ export class AuthService {
           foto: foto,
           uid:cred.user.uid,
           perfil:"especialista",
-          aprobado:false
+          aprobado:false,
+          comienzoA:8,
+          finalA:19
         })
 
         const usuario = await this.afAuth.currentUser;
@@ -237,6 +246,41 @@ export class AuthService {
       })
   }
 
+  TraerUsuariosLogin()
+  {
+    //pacientes
+     this.UsuariosLogin = this.afs.collection('usuarios', ref => ref.where('perfil', '==', "paciente").limit(3))
+     this.UsuariosLogin.valueChanges().subscribe(usuarios =>
+    {
+      this.usuariosLogin = []
+      usuarios.forEach(a => {
+        this.usuariosLogin.unshift(a);
+      });
+
+    })
+
+    //especialistas
+     this.UsuariosLogin =  this.afs.collection('usuarios', ref => ref.where('perfil', '==', "especialista").limit(2))
+     this.UsuariosLogin.valueChanges().subscribe(usuarios =>
+    {
+      usuarios.forEach(a => {
+        this.usuariosLogin.unshift(a);
+      });
+
+    })
+
+
+    //admin
+    this.UsuariosLogin =  this.afs.collection('usuarios', ref => ref.where('perfil', '==', "admin").limit(1))
+     this.UsuariosLogin.valueChanges().subscribe(usuarios =>
+    {
+      usuarios.forEach(a => {
+        this.usuariosLogin.unshift(a);
+      });
+
+    })
+  }
+
   aprobarEspecialista(uid:string)
   {
     this.afs.collection('usuarios').doc(uid).update({aprobado:true}).catch((err)=>
@@ -246,6 +290,30 @@ export class AuthService {
     {
       this.toastr.success("Usuario aprobado!", 'Exito');
     })
+  }
+
+  cambiarHorariosEspecialista(comienzo:number, final:number)
+  {
+    this.afs.collection('usuarios').doc(this.UsuarioActivo.uid).update({comienzoA:comienzo, finalA:final}).catch((err)=>
+    {
+      this.toastr.error("Ocurrio un error al actualizar los horarios!", 'Error')
+    }).finally(()=>
+    {
+      this.toastr.success("Horarios modificados correctamente!", 'Exito');
+    })
+  }
+
+  traerEspecialistas()
+  {
+        //especialistas
+      this.Especialistas =  this.afs.collection('usuarios', ref => ref.where('perfil', '==', "especialista").limit(2))
+      this.Especialistas.valueChanges().subscribe(esp =>
+      {
+        esp.forEach(a => {
+           this.especialistas.unshift(a);
+         });
+   
+      })
   }
 
 }

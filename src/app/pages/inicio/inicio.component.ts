@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class InicioComponent implements OnInit {
 
 
-  constructor(private router:Router, private auth :AuthService, private toastr:ToastrService) 
+  constructor(private router:Router, public auth :AuthService, private toastr:ToastrService) 
   {
     
   }

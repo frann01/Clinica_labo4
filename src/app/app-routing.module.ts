@@ -1,3 +1,5 @@
+import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
+import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
@@ -12,10 +14,15 @@ import { LogRegBaseComponent } from './pages/log-reg-base/log-reg-base.component
 import { RegisterAdminComponent } from './pages/register-admin/register-admin.component';
 import { RegistrosComponent } from './componentes/registros/registros.component';
 import { ListadoUsuariosComponent } from './componentes/listado-usuarios/listado-usuarios.component';
+import { RegistroImgsComponent } from './componentes/registro-imgs/registro-imgs.component';
+import { BienvenidaComponent } from './pages/bienvenida/bienvenida.component';
+import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
+
 
 const routes: Routes = [
   {path:'', component: LogRegBaseComponent, children:[
     {path:'', component: LoginComponent},
+    {path:'seleccion-registro', component: RegistroImgsComponent},
     {path:'registro', component: RegistrosComponent, children:
     [
       {path:'', component: RegisterComponent},
@@ -23,7 +30,7 @@ const routes: Routes = [
     ]}
   ]},
 
-  {path:'inicio', component: InicioComponent, canActivate:[LoginGuard,EspecialistaGuard], children:
+  {path:'inicio', component: InicioComponent/*, canActivate:[LoginGuard,EspecialistaGuard]*/, children:
   [
     {path:'usuarios', component: UsuariosComponent, canActivate:[AdminGuard], children:[
       {path:'usuario-registrar', component: RegisterComponent},
@@ -31,6 +38,10 @@ const routes: Routes = [
       {path:'especialista-registrar', component: RegistroEspecialistaComponent},
       {path:'listado', component: ListadoUsuariosComponent}
     ]},
+    {path:'', component: BienvenidaComponent},
+    {path:'mi-perfil', component: MiPerfilComponent},
+    {path:'mis-turnos', component: MisTurnosComponent},
+    {path:'sacar-turno', component: SolicitarTurnoComponent}
   ]}
 ];
 

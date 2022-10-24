@@ -1,0 +1,42 @@
+<br>
+<br>
+
+<div id="formContent">
+    <br>
+    <h1>SACAR TURNO</h1>
+    <div class="div_especialidad" *ngIf="flag_especialidad">
+        <div>
+            <h3>ESPECIALIDAD</h3>
+            <br>
+        </div>
+        <div class="gridTurnos" style="display: flex;">
+            <button *ngFor="let especialidad of base.especialidades"
+            (click)="seleccEspecialidad(especialidad.nombre)"
+            class="boton-especialidad " >{{especialidad.nombre}}</button>
+        </div>
+    </div>
+
+    <div class="div_especialidad" *ngIf="flag_especialista">
+        <div>
+            <h3>ESPECIALISTA</h3>
+            <br>
+        </div>
+        <div class="div_espe gridTurnos" >
+            <div class="center" *ngFor="let especialista of auth.especialistas">
+                <button *ngIf="especialista.especialidades.includes(especialidadSeleccionada) && especialista.aprobado"
+                (click)="seleccEspecialista(especialista)" 
+                class="boton-especialidad ">{{especialista.apellido + ", " + especialista.nombre}}</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_especialidad" *ngIf="flag_Datos">
+        <div>
+            <h3>FECHA Y HORARIO</h3>
+        </div>
+        <div class="div_botones gridTurnos">
+            <button *ngFor="let turno of turnos" (click)="seleccionarTurno(turno)" class="boton_turno">{{turno}}</button>
+        </div>
+    </div>
+</div>
+  

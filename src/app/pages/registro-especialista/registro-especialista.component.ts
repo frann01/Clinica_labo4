@@ -29,7 +29,7 @@ export class RegistroEspecialistaComponent implements OnInit {
       'apellido': ['', [Validators.required, this.spacesValidator]],
       'edad': ['', [Validators.required, Validators.min(18), Validators.max(99),Validators.pattern("^[0-9]*$")]],
       'email': ['', [Validators.required, this.spacesValidator]],
-      'dni': ['', Validators.required, Validators.pattern("^[0-9]*$")],
+      'dni': ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       'contrasena': ['', Validators.required],
       'foto': ['', Validators.required],
       'especialidadNueva': [''],
@@ -38,6 +38,7 @@ export class RegistroEspecialistaComponent implements OnInit {
 
   ngOnInit(): void {
     this.base.cargarEspecialidades()
+    console.log(this.router.url)
   }
 
   async Registrar()
@@ -59,21 +60,26 @@ export class RegistroEspecialistaComponent implements OnInit {
               if(user)
                 { 
                   this.toastr.success('Usuario Registrado', 'Exito')
-                  setTimeout(async () => {
+                  if(this.router.url=="/registro/especialista")
+                  {
+                    setTimeout(async () => {
                     
-                    const usuario = await this.authService.onLogin(this.user)
-                    if(usuario)
-                    {
-                      console.info("usuario encontrado: ", usuario);
-                      this.toastr.success("Ingreso exitoso!", 'Exito');
-                      this.router.navigate(['inicio']);
-                    }
-                    else
-                    {
-                      this.toastr.error("Hubo un error", 'Error')
-                    }
-                
-                  }, 3000);
+                      const usuario = await this.authService.onLogin(this.user)
+                      if(usuario)
+                      {
+                        console.info("usuario encontrado: ", usuario);
+                        this.toastr.success("Ingreso exitoso!", 'Exito');
+                        setTimeout(() => {
+                          this.router.navigate(['inicio']);
+                        }, 500);
+                      }
+                      else
+                      {
+                        this.toastr.error("Hubo un error", 'Error')
+                      }
+                  
+                    }, 3000);
+                  }
                 }
 
           }

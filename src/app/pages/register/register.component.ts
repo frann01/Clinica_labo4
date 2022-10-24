@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
       'apellido': ['', [Validators.required, this.spacesValidator]],
       'edad': ['', [Validators.required, Validators.min(18), Validators.max(99),Validators.pattern("^[0-9]*$")]],
       'email': ['', [Validators.required, this.spacesValidator]],
-      'dni': ['', Validators.required, Validators.pattern("^[0-9]*$")],
+      'dni': ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
       'contrasena': ['', Validators.required],
       'obra': ['', Validators.required],
       'foto1': ['', Validators.required],
@@ -32,6 +32,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
   async Registrar()
@@ -61,22 +62,26 @@ export class RegisterComponent implements OnInit {
                 {
                   console.log('Exito! Usuario Registrado')
                   this.toastr.success('Usuario Registrado', 'Exito')
-                  setTimeout(async () => {
-                    const user = await this.authService.onLogin(this.user)
-                    if(user)
-                    {
-                      console.info("usuario encontrado: ", user);
-                      this.toastr.success("Ingreso exitoso!", 'Exito');
-                      this.router.navigate(['inicio']);
-                    }
-                    else
-                    {
-                      this.toastr.error("Hubo un error", 'Error')
-                    }
-                
-                  }, 3000);
+                  if(this.router.url=="/registro")
+                  {
+                    setTimeout(async () => {
+                      const user = await this.authService.onLogin(this.user)
+                      if(user)
+                      {
+                        console.info("usuario encontrado: ", user);
+                        this.toastr.success("Ingreso exitoso!", 'Exito');
+                        setTimeout(() => {
+                          this.router.navigate(['inicio']);
+                        }, 500);
+                      }
+                      else
+                      {
+                        this.toastr.error("Hubo un error al ingresar", 'Error')
+                      }
+                  
+                    }, 3000);
+                  }
                 }
-
           }
           else
           {

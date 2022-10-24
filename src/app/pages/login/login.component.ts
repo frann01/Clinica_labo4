@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginComponent implements OnInit {
   public forma!: FormGroup;
   user:any= {};
-  constructor( private authService:AuthService,
+  constructor( public authService:AuthService,
     private fb: FormBuilder,
     private router : Router,
     private toastr: ToastrService) 
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     }); 
     }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
   }
 
   async Ingresar()
@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
       const user = await this.authService.onLogin(this.user)
       if(user)
       {
-        console.info("usuario encontrado: ", user);
         this.toastr.success("Ingreso exitoso!", 'Exito');
         setTimeout(() => {
           this.router.navigate(['inicio']);
@@ -57,31 +56,16 @@ export class LoginComponent implements OnInit {
 
   registrar()
   {
-    this.router.navigateByUrl("registro")
+    this.router.navigateByUrl("seleccion-registro")
   }
 
-  usuario()
+  usuarioRapido(user:any)
   {
     this.forma.setValue({
-      email:"PedroPerez@gmail.com",
-      contrasena:"123456"
+      email:user.email,
+      contrasena:user.contrasena
     });
   }
 
-  admin()
-  {
-    this.forma.setValue({
-      email:"mairaGomez@gmail.com",
-      contrasena:"123456"
-    });
-  }
-
-  especialista()
-  {
-    this.forma.setValue({
-      email:"franszellner@gmail.com",
-      contrasena:"123456"
-    });
-  }
 
 }

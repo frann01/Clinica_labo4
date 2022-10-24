@@ -1,0 +1,64 @@
+<br>
+<br>
+
+<div id="formContent">
+    <h1>MIS TURNOS</h1>
+    <div style="width: 100%;">
+        <h3>FILTRAR</h3>
+        <div style="width: 100%; display: flex">
+            <div style="width: 50%; float: left;">
+                <label  class="form-label">Especialidad <span class="text-muted"></span></label>
+                <div style="margin-left: auto; margin-right: auto; display:block">
+                    <div class="segundo_div">
+                        <button type="button" class="fadeIn boton-especialidad celeste"  value="">Oncologia</button>
+                        <button type="button" class="fadeIn boton-especialidad celeste"  value="">Pediatria</button>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 50%; float: right;">
+                <label  class="form-label">Especialista <span class="text-muted"></span></label>
+                <div style="margin-left: auto; margin-right: auto; display:block">
+                    <div class="segundo_div">
+                        <button type="button" class="fadeIn boton-especialidad celeste"  value="">Oncologia</button>
+                        <button type="button" class="fadeIn boton-especialidad celeste"  value="">Pediatria</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Especialidad</th>
+                <th *ngIf="auth.UsuarioActivo.perfil=='paciente'" >Especialista</th>
+                <th *ngIf="auth.UsuarioActivo.perfil=='especialista'" >Paciente</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let turno of turnosSrv.turnos">
+            <tr>
+                <td>{{turno.especialidad}}</td>
+                <td  *ngIf="auth.UsuarioActivo.perfil=='paciente'">{{turno.especialista.apellido +", "+ turno.especialista.nombre}}</td>
+                <td  *ngIf="auth.UsuarioActivo.perfil=='especialista'">{{turno.paciente.apellido +", "+ turno.paciente.nombre}}</td>
+                <td>{{turno.fecha}}</td>
+                <td>{{turno.estado}}</td>
+                <td>
+                    <div style="display: flex;">
+                        <button *ngIf="turno.estado!='realizado'">Cancelar</button>
+                        <button *ngIf="turno.estado=='pendiente' && auth.UsuarioActivo.perfil=='especialista'">Rechazar</button>
+                        <button *ngIf="turno.estado=='pendiente' && auth.UsuarioActivo.perfil=='especialista'">Aceptar</button>
+                        <button *ngIf="turno.resena">Detalle</button>
+                        <button *ngIf="turno.estado=='realizado' && auth.UsuarioActivo.perfil=='paciente'">Completar Encuesta</button>
+                        <button *ngIf="turno.estado=='realizado' && auth.UsuarioActivo.perfil=='paciente'">Calificar</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+ </div>
+  

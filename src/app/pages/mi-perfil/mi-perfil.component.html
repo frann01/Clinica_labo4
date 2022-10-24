@@ -1,0 +1,31 @@
+<body>
+    <div class="div_mayor">
+        <div class="div_titulo">
+            <h1>MI PERFIL</h1>
+        </div>
+        <div style="display:flex ;">
+            <div class="div_left">
+                <h1 class="j">{{auth.UsuarioActivo.apellido + " " + auth.UsuarioActivo.nombre}}</h1>
+                <br>
+                <p><b>DNI:</b>{{auth.UsuarioActivo.dni}} <b *ngIf="auth.UsuarioActivo.perfil=='paciente'" style="margin-left:10px"> OBRA SOCIAL: </b>{{auth.UsuarioActivo.obra}}</p>
+                <p><b>EMAIL: </b>{{auth.UsuarioActivo.email}} <b style="margin-left:10px"> EDAD: </b>{{auth.UsuarioActivo.edad}}</p>
+                <div *ngIf="auth.UsuarioActivo.perfil=='especialista'">
+                    <b>ESPECIALIDADES: </b>
+                    <p *ngFor="let espe of auth.UsuarioActivo.especialidades">{{espe}}</p> 
+                </div>
+                <div *ngIf="auth.UsuarioActivo.perfil=='especialista'">
+                    <b>HORARIOS DE ATENCION: </b>
+                    <p style="text-align: center;">De <input type="number" [(ngModel)]="comienzo" placeholder="{{auth.UsuarioActivo.comienzoA}}"></p>
+                    <p style="text-align: center;">A  <input type="number" [(ngModel)]="final" placeholder="{{auth.UsuarioActivo.finalA}}"></p>
+                    <button class="boton" (click)="cambiarHorarios()">Cambiar horarios</button>
+                </div>
+            </div>
+            <div class="div_right">
+                <div class="div_foto">
+                    <img class="img" src="{{auth.UsuarioActivo.foto}}">
+                    <img *ngIf="auth.UsuarioActivo.perfil=='paciente'" class="img_2" src="{{auth.UsuarioActivo.foto2}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
