@@ -7,25 +7,23 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class NoEspecialistaGuard implements CanActivate {
   constructor(private autentificador : AuthService, private router:Router,private toastr: ToastrService){}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.verificar()
-  }
-
-  verificar()
-  {
-    if(this.autentificador.UsuarioActivo.perfil == 'admin')
-   {
+      return this.verificar()
+    }
+    
+    verificar()
+    {
+      if(this.autentificador.UsuarioActivo.perfil == 'especialista')
+     {
+      this.toastr.error("Debe ser paciente o administrador para acceder a este componente!", 'Error')
+      return false
+      }
       return true;
-   }
-   else
-   {
-    this.toastr.error("Debe ser administrador para acceder a este componente!", 'Error')
-   }
-   return false
-  }
+    }
+  
 }

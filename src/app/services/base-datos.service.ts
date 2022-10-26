@@ -9,7 +9,7 @@ export class BaseDatosService {
 
   private itemsCollection?: AngularFirestoreCollection<any>;
   public especialidades: any[] = [];
-  constructor(private authService: AuthService,private afs: AngularFirestore) { }
+  constructor(private authService: AuthService,private afs: AngularFirestore) {this.cargarEspecialidades()}
 
 
   cargarEspecialidades() {

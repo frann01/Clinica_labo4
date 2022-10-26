@@ -23,7 +23,6 @@ export class UsuariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.ObtenerNoAprobados()
   }
 
   

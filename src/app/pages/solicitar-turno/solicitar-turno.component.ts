@@ -14,38 +14,74 @@ export class SolicitarTurnoComponent implements OnInit {
 
   constructor(private toastr: ToastrService,public auth : AuthService, public base : BaseDatosService, public turnosSrv :TurnosSrvService) { }
 
-  flag_especialidad:boolean = true;
+  flag_especialidad:boolean = false;
   flag_especialista:boolean = false;
   flag_Datos:boolean = false;
+  mostrarSeleccion:boolean=true;
 
-  especialidadSeleccionada:string;
+  especialidadSeleccionada:string=null;
 
-  especialistaSeleccionado:any;
+  especialistaSeleccionado:any=null;
 
   public turnoSeleccionado: any;
 
   turnos:any[] = []
 
+  especialistas:any[] = []
+  especialidades:any[] = []
+
+
 
   ngOnInit(): void {
-    this.auth.traerEspecialistas()
-    this.base.cargarEspecialidades()
-    this.turnosSrv.traerTurnos()
+    this.especialidades = this.base.especialidades
+    this.especialistas = this.auth.especialistas
   }
+
+  mostrarEspecialistas()
+  {
+    this.mostrarSeleccion = false
+    this.flag_especialista = true;
+    console.log(this.especialistas)
+  }
+
+  mostrarEspecialidades()
+  {
+    this.mostrarSeleccion = false
+    this.flag_especialidad = true;
+  }
+
 
   seleccEspecialidad(especialidad:string)
   {
     this.especialidadSeleccionada=especialidad
+    this.especialistas = this.auth.especialistas.filter( espe => espe.especialidades.includes(especialidad))
     this.flag_especialidad = false;
-    this.flag_especialista = true
+    if(this.especialistaSeleccionado != null)
+    {
+      this.crearTurnos()
+      this.flag_Datos = true;
+    }
+    else
+    {
+      this.flag_especialista = true
+    }
   }
 
   seleccEspecialista(especialista:any)
   {
     this.especialistaSeleccionado = especialista
-    this.flag_Datos = true;
+    this.especialidades = this.base.especialidades.filter( espe => especialista.especialidades.includes(espe.nombre))
     this.flag_especialista = false
-    this.crearTurnos()
+
+    if(this.especialidadSeleccionada != null)
+    {
+      this.crearTurnos()
+      this.flag_Datos = true;
+    }
+    else
+    {
+      this.flag_especialidad = true
+    }
   }
 
   crearTurnos()
@@ -117,14 +153,19 @@ export class SolicitarTurnoComponent implements OnInit {
       especialista:this.especialistaSeleccionado,
       fecha:turno,
       especialidad:this.especialidadSeleccionada,
-      estado:'pendiente'
+      estado:'pendiente',
+      diagnostico:"",
+      comentario_especialista:"",
+      comentario_usuario:"",
+      razon_cancelacion:""
     }
 
     this.turnosSrv.agregarTurno(this.turnoSeleccionado);
 
-    //this.filtroEspecialistas = false;
-    //this.filtroEspecialidades = false;
-    //this.listaTurnos = [];
+    this.flag_especialidad = false;
+    this.flag_especialista = false;
+    this.flag_Datos = false;
+    this.mostrarSeleccion=true;
 
   }
 

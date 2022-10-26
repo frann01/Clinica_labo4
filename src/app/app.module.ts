@@ -28,6 +28,7 @@ import { PerfilPipe } from './pipes/perfil.pipe';
 import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
 import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
+import { TurnosComponent } from './pages/turnos/turnos.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno
     MiPerfilComponent,
     MisTurnosComponent,
     SolicitarTurnoComponent,
+    TurnosComponent,
   ],
   imports: [
     BrowserModule,

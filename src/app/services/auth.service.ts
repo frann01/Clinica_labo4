@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { collection, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import * as firebase from 'firebase/compat';
-
+import { Subscription } from 'rxjs';
+import { TurnosSrvService } from './turnos-srv.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,6 +16,14 @@ export class AuthService {
 
   public isLogged: any = false;
   UsuarioActivo:any;
+  promiseUsuario:Subscription
+  promiseUsuarios:Subscription
+  promisePacientes:Subscription
+
+  promiseEspecialistas:Subscription
+  promiseNoAprobados:Subscription
+
+
   uidUser="";
 
   private noAprobados?: AngularFirestoreCollection<any>;
@@ -29,26 +38,31 @@ export class AuthService {
   private Especialistas?: AngularFirestoreCollection<any>;
   public especialistas: any[] = [];
 
-  constructor(private toastr: ToastrService,public afAuth : AngularFireAuth,public afs: AngularFirestore,private router: Router) 
+  private Pacientes?: AngularFirestoreCollection<any>;
+  public pacientes: any[] = [];
+
+  constructor(private toastr: ToastrService,public afAuth : AngularFireAuth,public afs: AngularFirestore,private router: Router,public turnos: TurnosSrvService) 
   {
     afAuth.authState.subscribe( user => (this.isLogged = user))
     this.TraerUsuariosLogin()
+    this.traerEspecialistas()
+    this.ObtenerNoAprobados()
+    this.traerUsuarios()
+    this.traerPacientes()
   }
 
   traerUsuarios()
   {
     this.UsuariosColeccion = this.afs.collection<any>('usuarios');
-    return this.UsuariosColeccion.valueChanges().subscribe(usuarios =>
+    this.promiseUsuarios=  this.UsuariosColeccion.valueChanges().subscribe(usuarios =>
       {
-        this.usuarios=[];
-        usuarios.forEach(usuario => {
-          this.usuarios.unshift(usuario);
-        });
+        this.usuarios=usuarios;
+
 
       })
   }
   
-  async onLogin(user : any)
+  async onLogin(user : any):Promise<any>
   {
     var retorno:any;
     retorno = await this.afAuth.signInWithEmailAndPassword(user.email, user.password)
@@ -56,12 +70,9 @@ export class AuthService {
 
     if(retorno)
     {
-      await (this.afs.collection('usuarios').doc(this.uidUser).get().toPromise().then(async (doc) =>{
-        await this.afs.collection('usuarios').doc(this.uidUser).valueChanges().subscribe(async (usuario) =>{
+      this.promiseUsuario = await this.afs.collection('usuarios').doc(this.uidUser).valueChanges().subscribe(async (usuario) =>{
           this.UsuarioActivo = usuario
-          await localStorage.setItem('user', JSON.stringify(user));
-        })
-      }));
+        });
     }
 
     return retorno;
@@ -195,36 +206,10 @@ export class AuthService {
     return url
   }
 
-  async RecuperarUsuario()
-  {
-    var retorno:any = false;
-    var user = localStorage.getItem('user');
-    if(user)
-    {
-      var Usuario = JSON.parse(user)
-      retorno = await this.afAuth.signInWithEmailAndPassword(Usuario.email, Usuario.password)
-      this.uidUser=retorno.user.uid
-      if(retorno)
-      {
-        await (this.afs.collection('usuarios').doc( this.uidUser).get().toPromise().then(doc =>{
-          this.afs.collection('usuarios').doc( this.uidUser).valueChanges().subscribe(usuario =>{
-            this.UsuarioActivo = usuario
-          })
-        }));
-      }
-      else
-      {
-        retorno=null;
-      }
-    }
-    
-    
-    return retorno;
-  }
 
   LogOut()
   {
-    localStorage.removeItem('user')
+    this.Unsubscriber()
     this.afAuth.signOut();
     this.router.navigate(['']);
   }
@@ -236,7 +221,7 @@ export class AuthService {
   ObtenerNoAprobados()
   {
     this.noAprobados = this.afs.collection('usuarios', ref => ref.where('aprobado', '==', false))
-    return this.noAprobados.valueChanges().subscribe(aprobados =>
+    this.promiseNoAprobados= this.noAprobados.valueChanges().subscribe(aprobados =>
       {
         this.noAprobadosA = []
         aprobados.forEach(a => {
@@ -305,15 +290,27 @@ export class AuthService {
 
   traerEspecialistas()
   {
-        //especialistas
-      this.Especialistas =  this.afs.collection('usuarios', ref => ref.where('perfil', '==', "especialista").limit(2))
-      this.Especialistas.valueChanges().subscribe(esp =>
+      this.Especialistas =  this.afs.collection('usuarios', ref => ref.where('perfil', '==', "especialista"))
+      this.promiseEspecialistas= this.Especialistas.valueChanges().subscribe(esp =>
       {
-        esp.forEach(a => {
-           this.especialistas.unshift(a);
-         });
+        this.especialistas = esp
    
       })
+  }
+
+  traerPacientes()
+  {
+      this.Pacientes =  this.afs.collection('usuarios', ref => ref.where('perfil', '==', "paciente"))
+      this.promisePacientes= this.Pacientes.valueChanges().subscribe(esp =>
+      {
+        this.pacientes = esp
+   
+      })
+  }
+
+  Unsubscriber()
+  {
+    this.promiseUsuario.unsubscribe()
   }
 
 }

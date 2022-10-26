@@ -10,7 +10,6 @@ export class ListadoUsuariosComponent implements OnInit {
   constructor(public auth : AuthService) { }
 
   ngOnInit(): void {
-    this.auth.traerUsuarios()
   }
 
 }

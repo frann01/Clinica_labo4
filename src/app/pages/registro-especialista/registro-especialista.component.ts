@@ -37,8 +37,6 @@ export class RegistroEspecialistaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.base.cargarEspecialidades()
-    console.log(this.router.url)
   }
 
   async Registrar()

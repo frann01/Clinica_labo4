@@ -4,28 +4,7 @@
 <div id="formContent">
     <h1>MIS TURNOS</h1>
     <div style="width: 100%;">
-        <h3>FILTRAR</h3>
-        <div style="width: 100%; display: flex">
-            <div style="width: 50%; float: left;">
-                <label  class="form-label">Especialidad <span class="text-muted"></span></label>
-                <div style="margin-left: auto; margin-right: auto; display:block">
-                    <div class="segundo_div">
-                        <button type="button" class="fadeIn boton-especialidad celeste"  value="">Oncologia</button>
-                        <button type="button" class="fadeIn boton-especialidad celeste"  value="">Pediatria</button>
-                    </div>
-                </div>
-            </div>
-            <div style="width: 50%; float: right;">
-                <label  class="form-label">Especialista <span class="text-muted"></span></label>
-                <div style="margin-left: auto; margin-right: auto; display:block">
-                    <div class="segundo_div">
-                        <button type="button" class="fadeIn boton-especialidad celeste"  value="">Oncologia</button>
-                        <button type="button" class="fadeIn boton-especialidad celeste"  value="">Pediatria</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+        <button class="boton-filtrar " (click)="MostrarFiltro()">FILTRAR</button>
     </div>
     <br>
     <table class="table table-striped">
@@ -39,7 +18,9 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody *ngFor="let turno of turnosSrv.turnos">
+        <div style="text-align: center; width: 100%;" *ngIf="turnosFiltrados.length == 0"><h3 class="titulo" >No tiene turnos</h3><br></div>
+
+        <tbody *ngFor="let turno of turnosFiltrados">
             <tr>
                 <td>{{turno.especialidad}}</td>
                 <td  *ngIf="auth.UsuarioActivo.perfil=='paciente'">{{turno.especialista.apellido +", "+ turno.especialista.nombre}}</td>
@@ -48,17 +29,113 @@
                 <td>{{turno.estado}}</td>
                 <td>
                     <div style="display: flex;">
-                        <button *ngIf="turno.estado!='realizado'">Cancelar</button>
-                        <button *ngIf="turno.estado=='pendiente' && auth.UsuarioActivo.perfil=='especialista'">Rechazar</button>
-                        <button *ngIf="turno.estado=='pendiente' && auth.UsuarioActivo.perfil=='especialista'">Aceptar</button>
-                        <button *ngIf="turno.resena">Detalle</button>
-                        <button *ngIf="turno.estado=='realizado' && auth.UsuarioActivo.perfil=='paciente'">Completar Encuesta</button>
-                        <button *ngIf="turno.estado=='realizado' && auth.UsuarioActivo.perfil=='paciente'">Calificar</button>
+                        <button class="boton_accion rojo" *ngIf="turno.estado=='aceptado'" (click)="MostrarCancelar(turno)">Cancelar</button>
+                        <button class="boton_accion rojo" *ngIf="turno.estado=='pendiente' && auth.UsuarioActivo.perfil=='especialista'" (click)="RechazarTurno(turno)">Rechazar</button>
+                        <button class="boton_accion darkcyan" *ngIf="turno.estado=='pendiente' && auth.UsuarioActivo.perfil=='especialista'" (click)="AceptarTurno(turno)">Aceptar</button>
+                        <button class="boton_accion darkcyan" *ngIf="turno.estado=='aceptado' && auth.UsuarioActivo.perfil=='especialista'" (click)="MostrarFinalizar(turno)">Finalizar</button>
+                        <button class="boton_accion celeste" *ngIf="turno.diagnostico != ''" (click)="MostrarResena(turno)">Detalle</button>
+                        <button class="boton_accion darkcyan" *ngIf="turno.estado=='realizado' && auth.UsuarioActivo.perfil=='paciente'">Completar Encuesta</button>
+                        <button class="boton_accion darkcyan" *ngIf="turno.diagnostico != '' && auth.UsuarioActivo.perfil=='paciente' && turno.comentario_usuario == ''" (click)="MostrarCalificar(turno)">Calificar</button>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
 
+    
+    <div class="div_fondo_filtro" *ngIf="mostrarFiltro">
+        <div class="div_filtro">
+            <h3>FILTRAR</h3>
+
+            <div style="width: 100%; height:100%" *ngIf="mostrarSelector">
+                <div class="gridTurnos" style="display: flex;">
+                    <button class="boton-filtro " (click)="MostrarFiltroEspecialidades()">ESPECIALIDAD</button>
+                    <button class="boton-filtro " (click)="MostrarFiltroEspecialistas()">ESPECIALISTA</button>
+                    <button class="boton-filtro " (click)="QuitarFiltros()">QUITAR FILTROS</button>
+                </div>
+            </div>
+            
+            <div style="width: 100%; height:100%" *ngIf="mostrarFiltroEspecialistas">
+                <div class="gridTurnos" style="display: flex;">
+                    <button *ngFor="let especialista of auth.especialistas" (click)="SeleccionarFiltroEspecialista(especialista.uid)" class="boton-filtro " >{{especialista.apellido + ", " + especialista.nombre}}</button>
+                </div>
+            </div>
+
+            <div style="width: 100%; height:100%" *ngIf="mostrarFiltroEspecialidades">
+                <div class="gridTurnos" style="display: flex;">
+                    <button *ngFor="let especialidad of base.especialidades" (click)="SeleccionarFiltroEspecialidades(especialidad.nombre)" class="boton-filtro ">{{especialidad.nombre}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_fondo_filtro" *ngIf="mostrarFinalizar">
+        <div class="div_filtro">
+            <h3>Finalizar</h3>
+            <br>
+
+            <div style="width: 100%; height:100%">
+                <h4>DIAGNOSTICO</h4>
+                <input type="text" [(ngModel)]="diagnostico">
+                <br>
+                <br>
+
+                <h4>COMENTARIO</h4>
+                <input type="text" [(ngModel)]="comentario">
+                <br>
+                <button class="boton-Agregar" (click)="Finalizar()">Finalizar Turno</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_fondo_filtro" *ngIf="mostrarResena">
+        <div class="div_filtro">
+            <h3>Reseña</h3>
+            <br>
+
+            <div style="width: 100%; height:100%">
+                <h4>DIAGNOSTICO</h4>
+                <p>{{turnoSeleccionado.diagnostico}}</p>
+                <br>
+
+                <h4>COMENTARIO ESPECIALISTA</h4> 
+                <p>{{turnoSeleccionado.comentario_especialista}}</p>
+                <br>
+
+                <h4 *ngIf='turnoSeleccionado.comentario_usuario != ""'>COMENTARIO PACIENTE</h4> 
+                <p *ngIf='turnoSeleccionado.comentario_usuario != ""'>{{turnoSeleccionado.comentario_usuario}}</p>
+                <br>
+                <button class="boton-Agregar" (click)="CerrarResena()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_fondo_filtro" *ngIf="mostrarCalificar">
+        <div class="div_filtro">
+            <h3>Reseña</h3>
+            <br>
+
+            <div style="width: 100%; height:100%">
+                <h4>COMENTARIO</h4> 
+                <input type="text" [(ngModel)]="comentario">
+                <br>
+                <button class="boton-Agregar" (click)="Calificar()">Calificar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="div_fondo_filtro" *ngIf="mostrarCancelar">
+        <div class="div_filtro">
+            <h3>Cancelar</h3>
+            <br>
+
+            <div style="width: 100%; height:100%">
+                <h4>RAZÓN</h4> 
+                <input type="text" [(ngModel)]="razon">
+                <br>
+                <button class="boton-Agregar" (click)="CancelarTurno()">Cancelar Turno</button>
+            </div>
+        </div>
+    </div>
  </div>
   

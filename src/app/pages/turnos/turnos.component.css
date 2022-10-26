@@ -6,6 +6,7 @@ html {
   background-image: url('../../../assets/img/nurse.jpg');
 }
 
+
 .div_fondo_filtro
 {
   position: absolute;
@@ -21,6 +22,7 @@ html {
 .titulo
 {
   margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .gridTurnos
@@ -28,57 +30,6 @@ html {
   max-width: 600rem;
   overflow-y:scroll;
 
-}
-
-.boton-filtro
-{
-  color : white;
-  padding: 5%;
-  border-radius: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #39ace7;
-
-}
-
-
-
-.boton-filtrar
-{
-  color : white;
-  padding: 1%;
-  border-radius: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #39ace7;
-
-}
-.div_filtro
-{
-  position: absolute;
-  overflow-y: scroll;
-  top: 0%;
-  left: 28%;
-  width: 30rem;
-  padding: 2%;
-  background-color: aliceblue;
-  border-radius: 10px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  border-style: solid;
-  border-width: 1.5px;
-
-
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  background-image: url('../../../assets/img/nurse.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
 }
 
 .boton_accion
@@ -103,6 +54,55 @@ body {
   background-color:#56baed
 }
 
+.boton-filtro
+{
+  color : white;
+  padding: 4% 2% 4% 2%;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #39ace7;
+
+}
+
+.boton-filtrar
+{
+  color : white;
+  padding: 1%;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #39ace7;
+
+}
+.div_filtro
+{
+  position: absolute;
+  top: 10%;
+  left: 22%;
+  width: 40rem;
+  padding: 2%;
+  background-color: aliceblue;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border-style: solid;
+  border-width: 1.5px;
+
+
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-image: url('../../../assets/img/nurse.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+
 a {
   color: #92badd;
   display:inline-block;
@@ -123,10 +123,9 @@ h2 {
 
 .boton-Agregar
 {
-  border-style: solid;
-  border-color: #92badd;
-  border-width: 1.5px;
+  margin-top: 300px;
   background-color: #56baed;
+  border: none;
   color: white;
   padding: 15px 80px;
   text-align: center;
@@ -146,10 +145,7 @@ h2 {
   transition: all 0.3s ease-in-out;
 }
 
-.boton-Agregar:hover
-{
-  background-color: #1680be;
-}
+
 
 /* STRUCTURE */
 

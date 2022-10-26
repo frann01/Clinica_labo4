@@ -17,6 +17,10 @@ import { ListadoUsuariosComponent } from './componentes/listado-usuarios/listado
 import { RegistroImgsComponent } from './componentes/registro-imgs/registro-imgs.component';
 import { BienvenidaComponent } from './pages/bienvenida/bienvenida.component';
 import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
+import { TurnosComponent } from './pages/turnos/turnos.component';
+import { NoAdminGuard } from './guards/no-admin.guard';
+import { NoEspecialistaGuard } from './guards/no-especialista.guard';
+
 
 
 const routes: Routes = [
@@ -30,7 +34,7 @@ const routes: Routes = [
     ]}
   ]},
 
-  {path:'inicio', component: InicioComponent/*, canActivate:[LoginGuard,EspecialistaGuard]*/, children:
+  {path:'inicio', component: InicioComponent, canActivate:[LoginGuard,EspecialistaGuard], children:
   [
     {path:'usuarios', component: UsuariosComponent, canActivate:[AdminGuard], children:[
       {path:'usuario-registrar', component: RegisterComponent},
@@ -40,13 +44,15 @@ const routes: Routes = [
     ]},
     {path:'', component: BienvenidaComponent},
     {path:'mi-perfil', component: MiPerfilComponent},
-    {path:'mis-turnos', component: MisTurnosComponent},
-    {path:'sacar-turno', component: SolicitarTurnoComponent}
+    {path:'mis-turnos', component: MisTurnosComponent, canActivate:[NoAdminGuard]},
+    {path:'sacar-turno', component: SolicitarTurnoComponent, canActivate:[NoEspecialistaGuard]},
+    {path:'turnos', component: TurnosComponent, canActivate:[AdminGuard]}
   ]}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
+
 })
 export class AppRoutingModule { }
