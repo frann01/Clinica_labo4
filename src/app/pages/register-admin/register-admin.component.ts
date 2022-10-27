@@ -25,7 +25,8 @@ export class RegisterAdminComponent implements OnInit {
       'email': ['', [Validators.required, this.spacesValidator]],
       'dni': ['', Validators.required, Validators.pattern("^[0-9]*$")],
       'contrasena': ['', Validators.required],
-      'foto': ['', Validators.required]
+      'foto': ['', Validators.required],
+      'recaptcha': ['', Validators.required]
     });
   }
 

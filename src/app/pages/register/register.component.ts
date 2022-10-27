@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   user:any = {}
   foto1:any;
   foto2:any;
-  constructor(private authService:AuthService, private fb: FormBuilder,private router : Router,private toastr: ToastrService) 
+  constructor(public authService:AuthService, private fb: FormBuilder,private router : Router,private toastr: ToastrService) 
   {
     this.forma = this.fb.group({
       'nombre': ['', [Validators.required, this.spacesValidator]],
@@ -27,7 +27,8 @@ export class RegisterComponent implements OnInit {
       'contrasena': ['', Validators.required],
       'obra': ['', Validators.required],
       'foto1': ['', Validators.required],
-      'foto2': ['', Validators.required]
+      'foto2': ['', Validators.required],
+      'recaptcha': ['', Validators.required]
     });
   }
 

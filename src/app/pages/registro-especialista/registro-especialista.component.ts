@@ -18,7 +18,7 @@ export class RegistroEspecialistaComponent implements OnInit {
   foto:any;
   especialidadNueva:string;
 
-  constructor(private authService:AuthService,
+  constructor(public authService:AuthService,
      private fb: FormBuilder,
      private router : Router,
      private toastr: ToastrService,
@@ -33,6 +33,7 @@ export class RegistroEspecialistaComponent implements OnInit {
       'contrasena': ['', Validators.required],
       'foto': ['', Validators.required],
       'especialidadNueva': [''],
+      'recaptcha': ['', Validators.required]
     });
   }
 

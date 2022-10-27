@@ -14,6 +14,8 @@ import { TurnosSrvService } from './turnos-srv.service';
 })
 export class AuthService {
 
+  siteKey :string = "6LcO8LUiAAAAAAWeGj0dIKJsUe1Ug57VD-E7X_6r"
+  secretKey:string="6LcO8LUiAAAAAMHybv6fwosOkWReWZM6of0PKTIM"
   public isLogged: any = false;
   UsuarioActivo:any;
   promiseUsuario:Subscription
@@ -148,9 +150,17 @@ export class AuthService {
           foto: foto,
           uid:cred.user.uid,
           perfil:"admin"
-        }).finally(()=>
+        }).finally(async ()=>
         {
           this.toastr.success("Usuario registrado!", 'Exito');
+          const usuario = await this.afAuth.currentUser;
+          usuario.sendEmailVerification().then(()=>
+          {
+            console.log("Email enviado")
+          }).catch((error) =>
+          {
+            console.log("Ocurrio un error")
+          })
         })
       })
 
@@ -165,8 +175,8 @@ export class AuthService {
   {
     try
     {
-      var foto1 = await this.subirArchivos(user.foto1)
-      var foto2 = await this.subirArchivos(user.foto2)
+        var foto1 = await this.subirArchivos(user.foto1)
+        var foto2 = await this.subirArchivos(user.foto2)
 
         await this.afAuth.createUserWithEmailAndPassword(user.email, user.password).then(async (cred) =>{
           cred.user?.sendEmailVerification()
@@ -182,6 +192,16 @@ export class AuthService {
             foto2: foto2,
             uid:cred.user.uid,
             perfil:"paciente"
+          }).then(async ()=>
+          {
+            const usuario = await this.afAuth.currentUser;
+            usuario.sendEmailVerification().then(()=>
+            {
+              console.log("Email enviado")
+            }).catch((error) =>
+            {
+              console.log("Ocurrio un error")
+            })
           })
         })
 
@@ -290,7 +310,7 @@ export class AuthService {
 
   traerEspecialistas()
   {
-      this.Especialistas =  this.afs.collection('usuarios', ref => ref.where('perfil', '==', "especialista"))
+      this.Especialistas =  this.afs.collection('usuarios', ref => ref.where('perfil', '==', "especialista").where('aprobado', '==', true))
       this.promiseEspecialistas= this.Especialistas.valueChanges().subscribe(esp =>
       {
         this.especialistas = esp

@@ -137,7 +137,17 @@
             </div>
   
             <hr class="my-4">
-            <button type="submit" [disabled]="forma.invalid" class="fadeIn fourth boton-Agregar cursor" >Registrar</button>
+            <div class="center col-sm-6">
+              <ngx-recaptcha2 #captchaElem
+              [siteKey]="authService.siteKey"
+
+              [useGlobalDomain]="false"
+              formControlName="recaptcha">
+            </ngx-recaptcha2>
+            </div>
+          
+            <hr class="my-4">
+            <button type="submit" [disabled]="forma.invalid" class=" center col-sm-6 fadeIn fourth boton-Agregar cursor" >Registrar</button>
           </form>
 
 

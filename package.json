@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build && firebase deploy --only hosting"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +25,7 @@
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.2.0",
     "firebase": "^9.12.1",
+    "ngx-captcha": "^12.0.2",
     "ngx-toastr": "^15.2.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

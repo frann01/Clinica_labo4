@@ -29,6 +29,8 @@ import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
 import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 import { TurnosComponent } from './pages/turnos/turnos.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
+
 
 @NgModule({
   declarations: [
@@ -63,7 +65,8 @@ import { TurnosComponent } from './pages/turnos/turnos.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
      AngularFireAuthModule,
      provideFirestore(() => getFirestore()),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxCaptchaModule
   ],
   providers: [],
   bootstrap: [AppComponent]
