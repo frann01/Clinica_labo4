@@ -26,7 +26,8 @@ export class BaseDatosService {
 
   agregarEspecialidades(especialidad: string) {
     let nuevaEspecialidad: any = {
-      nombre: especialidad
+      nombre: especialidad,
+      foto:"https://firebasestorage.googleapis.com/v0/b/tpclinica-labo.appspot.com/o/logoEspecialidad.png?alt=media&token=9a3bf161-fbf7-437c-af28-700f5c1a0447"
     };
 
     return this.afs.collection('especialidades').add(nuevaEspecialidad);

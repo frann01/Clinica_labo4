@@ -45,7 +45,7 @@ const routes: Routes = [
     {path:'', component: BienvenidaComponent},
     {path:'mi-perfil', component: MiPerfilComponent},
     {path:'mis-turnos', component: MisTurnosComponent, canActivate:[NoAdminGuard]},
-    {path:'sacar-turno', component: SolicitarTurnoComponent, canActivate:[NoEspecialistaGuard]},
+    {path:'sacar-turno', component: SolicitarTurnoComponent, canActivate:[NoEspecialistaGuard, NoAdminGuard]},
     {path:'turnos', component: TurnosComponent, canActivate:[AdminGuard]}
   ]}
 ];

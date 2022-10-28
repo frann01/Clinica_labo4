@@ -141,19 +141,40 @@ h2 {
 
 .boton-especialidad
 {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   color : white;
-  padding: 2% 5% 2% 5%;
+  padding: 4% 7% 4% 7%;
   border-radius: 10px;
   margin-left: auto;
   margin-right: auto;
   display: block;
-  background-color: #39ace7;
+  transition: all 0.3s ease 0s;
 
+}
+
+.boton-especialista
+{
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color : white;
+  padding: 16% 35% 16% 35%;
+  border-radius: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  transition: all 0.3s ease 0s;
 }
 
 .boton-especialidad:hover
 {
-    background-color: #1680be;
+    transform: translateY(-5px);
+}
+.boton-especialista:hover
+{
+    transform: translateY(-5px);
 }
 
 .boton_turno:hover

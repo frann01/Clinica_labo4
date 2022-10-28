@@ -5,25 +5,16 @@
     <br>
     <h1>SACAR TURNO</h1>
 
-    <div class="div_especialidad" *ngIf="mostrarSeleccion">
-        <div>
-        </div>
-        <div class="gridTurnos" style="display: flex;">
-            <button class="boton-especialidad" (click)="mostrarEspecialidades()">ESPECIALIDADES</button>
-            <button class="boton-especialidad" (click)="mostrarEspecialistas()">ESPECIALISTAS</button>
-        </div>
-    </div>
-
 
     <div class="div_especialidad" *ngIf="flag_especialidad">
         <div>
             <h3>ESPECIALIDAD</h3>
             <br>
         </div>
-        <div class="gridTurnos" style="display: flex;">
+        <div class="gridTurnos" style="display: flex;" >
             <button *ngFor="let especialidad of especialidades"
             (click)="seleccEspecialidad(especialidad.nombre)"
-            class="boton-especialidad " >{{especialidad.nombre}}</button>
+            class="boton-especialidad " style="background-image: url({{especialidad.foto}});"></button>
         </div>
     </div>
 
@@ -34,9 +25,11 @@
         </div>
         <div class="div_espe gridTurnos" >
             <div class="center" *ngFor="let especialista of especialistas">
-                <button *ngIf="especialista.aprobado"
+                <h5>{{especialista.apellido + ", " + especialista.nombre}}</h5>
+                <button style="background-image: url({{especialista.foto}});" 
+                *ngIf="especialista.aprobado"
                 (click)="seleccEspecialista(especialista)" 
-                class="boton-especialidad ">{{especialista.apellido + ", " + especialista.nombre}}</button>
+                class="boton-especialista"></button>
             </div>
         </div>
     </div>

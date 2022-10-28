@@ -14,10 +14,9 @@ export class SolicitarTurnoComponent implements OnInit {
 
   constructor(private toastr: ToastrService,public auth : AuthService, public base : BaseDatosService, public turnosSrv :TurnosSrvService) { }
 
-  flag_especialidad:boolean = false;
+  flag_especialidad:boolean = true;
   flag_especialista:boolean = false;
   flag_Datos:boolean = false;
-  mostrarSeleccion:boolean=true;
 
   especialidadSeleccionada:string=null;
 
@@ -37,51 +36,20 @@ export class SolicitarTurnoComponent implements OnInit {
     this.especialistas = this.auth.especialistas
   }
 
-  mostrarEspecialistas()
-  {
-    this.mostrarSeleccion = false
-    this.flag_especialista = true;
-    console.log(this.especialistas)
-  }
-
-  mostrarEspecialidades()
-  {
-    this.mostrarSeleccion = false
-    this.flag_especialidad = true;
-  }
-
-
   seleccEspecialidad(especialidad:string)
   {
+    this.flag_especialidad = false ;
+    this.flag_especialista =true;
     this.especialidadSeleccionada=especialidad
     this.especialistas = this.auth.especialistas.filter( espe => espe.especialidades.includes(especialidad))
-    this.flag_especialidad = false;
-    if(this.especialistaSeleccionado != null)
-    {
-      this.crearTurnos()
-      this.flag_Datos = true;
-    }
-    else
-    {
-      this.flag_especialista = true
-    }
   }
 
   seleccEspecialista(especialista:any)
   {
     this.especialistaSeleccionado = especialista
-    this.especialidades = this.base.especialidades.filter( espe => especialista.especialidades.includes(espe.nombre))
     this.flag_especialista = false
-
-    if(this.especialidadSeleccionada != null)
-    {
-      this.crearTurnos()
-      this.flag_Datos = true;
-    }
-    else
-    {
-      this.flag_especialidad = true
-    }
+    this.crearTurnos()
+    this.flag_Datos = true;
   }
 
   crearTurnos()
@@ -123,7 +91,7 @@ export class SolicitarTurnoComponent implements OnInit {
         dia.setHours(comienzoHorario, 0);
 
         do {
-          turnoConFormato = dia.toLocaleString([], { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', });
+          turnoConFormato = dia.toLocaleString([], { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', });
 
           if (this.estaElTurnoDisponible(turnoConFormato)) {
             this.turnos.push(turnoConFormato);
@@ -162,11 +130,9 @@ export class SolicitarTurnoComponent implements OnInit {
 
     this.turnosSrv.agregarTurno(this.turnoSeleccionado);
 
-    this.flag_especialidad = false;
+    this.flag_especialidad = true;
     this.flag_especialista = false;
     this.flag_Datos = false;
-    this.mostrarSeleccion=true;
-
   }
 
 
