@@ -125,7 +125,8 @@ export class SolicitarTurnoComponent implements OnInit {
       diagnostico:"",
       comentario_especialista:"",
       comentario_usuario:"",
-      razon_cancelacion:""
+      razon_cancelacion:"",
+      historial:null
     }
 
     this.turnosSrv.agregarTurno(this.turnoSeleccionado);

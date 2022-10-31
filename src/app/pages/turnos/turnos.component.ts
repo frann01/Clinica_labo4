@@ -23,7 +23,7 @@ export class TurnosComponent implements OnInit {
   mostrarFiltroPacientes:boolean=false;
 
   turnoSeleccionado:any;
-
+  searchParam:string="";
   razon:string="";
 
   mostrarCancelar:boolean=false;
@@ -33,47 +33,7 @@ export class TurnosComponent implements OnInit {
     console.log(this.auth.pacientes)
   }
 
-  MostrarFiltro()
-  { 
-    this.mostrarFiltro=true;this.mostrarSelector=true;
-  }
-  MostrarFiltroEspecialidades(){ this.mostrarSelector=false; this.mostrarFiltroEspecialidades=true;}
-  MostrarFiltroEspecialistas(){ this.mostrarSelector=false; this.mostrarFiltroEspecialistas=true;}
-  MostrarFiltroPacientes(){ this.mostrarSelector=false; this.mostrarFiltroPacientes=true;}
 
-  QuitarFiltros()
-  {
-    this.turnosFiltrados = this.turnosSrv.turnos
-    this.mostrarFiltro=false;
-    this.mostrarSelector=false;
-  }
-  SeleccionarFiltroEspecialista(uid:string)
-  {
-    this.mostrarFiltroEspecialistas=false;
-    this.mostrarFiltro=false;
-    this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.especialista.uid == uid)
-
-  }
-  SeleccionarFiltroEspecialidades(desc:string)
-  {
-    this.mostrarFiltroEspecialidades=false;
-    this.mostrarFiltro=false;
-
-    this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.especialidad == desc)
-
-
-  }
-
-  SeleccionarFiltroPaciente(paciente:any)
-  {
-    console.log(paciente)
-    this.mostrarFiltroPacientes=false;
-    this.mostrarFiltro=false;
-    this.turnosFiltrados = this.turnosSrv.turnos.filter(turno => turno.paciente.uid == paciente.uid)
-    console.log(this.turnosFiltrados)
-  }
-
-  
   MostrarCancelar(turno:any)
   {
     this.turnoSeleccionado = turno;
@@ -91,20 +51,49 @@ export class TurnosComponent implements OnInit {
       let razon = this.auth.UsuarioActivo.perfil +": "+this.razon
       await this.turnosSrv.cancelar(this.turnoSeleccionado, razon).then(()=>
       {
-        if(this.auth.UsuarioActivo.perfil=="paciente")
-        {
-          this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.paciente.uid == this.auth.UsuarioActivo.uid)
-        }
-        else
-        {
-          this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.especialista.uid == this.auth.UsuarioActivo.uid)
-        }
         this.mostrarCancelar = false;
         this.turnoSeleccionado = null
       })
     }
     
   }
+
+  
+  hacerBusqueda() {
+
+    if (this.searchParam === "") {
+      this.turnosFiltrados = this.turnosSrv.turnos;
+      return;
+    }
+
+    const serachParamLower = this.searchParam.toLowerCase();
+    this.turnosFiltrados = this.turnosSrv.turnos.filter(turno => this.doSearch(turno, serachParamLower));
+  }
+
+  doSearch(value, searcher) {
+    if (typeof value === 'boolean') {
+      return false;
+    }
+
+    if (typeof value === 'object') {
+      for (let fieldKey in value) {
+        if (!this.estaEnLaListaNegraDeKeys(fieldKey) && this.doSearch(value[fieldKey], searcher)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+
+    return (typeof value == "string" ? value.toLocaleLowerCase() : value.toString()).includes(searcher)
+  }
+
+  estaEnLaListaNegraDeKeys(key) {
+    return ["especialidades", "foto", "foto1", "foto2"].indexOf(key) != -1
+  }
+
+
 
 
 }

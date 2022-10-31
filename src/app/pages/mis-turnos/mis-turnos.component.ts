@@ -3,6 +3,7 @@ import { BaseDatosService } from 'src/app/services/base-datos.service';
 import { TurnosSrvService } from 'src/app/services/turnos-srv.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -11,10 +12,24 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MisTurnosComponent implements OnInit {
 
-  constructor(private toastr: ToastrService,public base : BaseDatosService, public turnosSrv : TurnosSrvService, public auth : AuthService) { }
+  public forma!: FormGroup;
+
+  constructor(private toastr: ToastrService,public base : BaseDatosService, private fb: FormBuilder, public turnosSrv : TurnosSrvService, public auth : AuthService)
+  {
+    this.forma = this.fb.group({
+      'comentario': ['', [Validators.required]],
+      'diagnostico': ['', [Validators.required]],
+      'peso': ['', [Validators.required, Validators.min(1)]],
+      'altura': ['', [Validators.required, Validators.min(1)]],
+      'presion': ['', [Validators.required, Validators.min(1)]],
+      'temperatura': ['', [Validators.required, Validators.min(1)]],
+      'clave': [''],
+      'valor': [''],
+    });
+  }
 
   turnosFiltrados:any[];
-
+  turnosFiltradosUsuario:any[];
   mostrarFiltro:boolean=false;
   mostrarSelector:boolean=false
   mostrarFiltroEspecialistas:boolean=false;
@@ -22,12 +37,15 @@ export class MisTurnosComponent implements OnInit {
 
   mostrarFinalizar:boolean=false;
   turnoSeleccionado:any;
+  searchParam:string="";
 
   diagnostico:string="";
   comentario:string="";
   razon:string="";
 
-
+  datosDinamicos:any = []
+  clave:string="";
+  valor :string="";
   mostrarResena:boolean=false;
 
   mostrarCalificar:boolean=false;
@@ -46,65 +64,12 @@ export class MisTurnosComponent implements OnInit {
     }
   }
 
-
-  MostrarFiltro()
-  { 
-    if(this.auth.UsuarioActivo.perfil=="paciente")
-    {
-      this.mostrarFiltro=true;this.mostrarSelector=true;
-
-    }
-    else
-    {
-      this.mostrarFiltro=true;this.mostrarFiltroEspecialidades=true;
-
-    }
-  }
-  MostrarFiltroEspecialidades(){ this.mostrarSelector=false; this.mostrarFiltroEspecialidades=true;}
-  MostrarFiltroEspecialistas(){ this.mostrarSelector=false; this.mostrarFiltroEspecialistas=true;}
-  QuitarFiltros()
+  agregarDatosDinamicos()
   {
-    if(this.auth.UsuarioActivo.perfil=="paciente")
-    {
-      this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.paciente.uid == this.auth.UsuarioActivo.uid)
-    }
-    else
-    {
-      this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.especialista.uid == this.auth.UsuarioActivo.uid)
-    }
-    this.mostrarFiltro=false;
-    this.mostrarSelector=false;
-  }
-  SeleccionarFiltroEspecialista(uid:string)
-  {
-    this.mostrarFiltroEspecialistas=false;
-    this.mostrarFiltro=false;
-    if(this.auth.UsuarioActivo.perfil=="paciente")
-    {
-      this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.paciente.uid == this.auth.UsuarioActivo.uid &&
-         turno.especialista.uid == uid)
-    }
-    else
-    {
-      this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.especialista.uid == this.auth.UsuarioActivo.uid &&
-         turno.especialista.uid == uid)
-    }
-  }
-  SeleccionarFiltroEspecialidades(desc:string)
-  {
-    this.mostrarFiltroEspecialidades=false;
-    this.mostrarFiltro=false;
-    if(this.auth.UsuarioActivo.perfil=="paciente")
-    {
-      this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.paciente.uid == this.auth.UsuarioActivo.uid 
-        && turno.especialidad == desc)
-    }
-    else
-    {
-      this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.especialista.uid == this.auth.UsuarioActivo.uid 
-        && turno.especialidad == desc)
-    }
-
+    this.datosDinamicos.push({
+      clave:this.forma.get('clave')!.value,
+      valor:this.forma.get('valor')!.value
+    })
   }
 
   MostrarCancelar(turno:any)
@@ -163,13 +128,21 @@ export class MisTurnosComponent implements OnInit {
 
   async Finalizar()
   {
-    if(this.diagnostico == "" || this.comentario == "")
+    if(this.forma.invalid)
     {
-      this.toastr.error("Debe llenar ambos campos", 'Error')
+      this.toastr.error("Debe llenar todos los campos correctamente", 'Error')
     }
     else
     {
-      await this.turnosSrv.finalizar(this.turnoSeleccionado, this.comentario, this.diagnostico).then(()=>
+      let datosHistorial= 
+      {
+        peso:this.forma.get('peso')!.value,
+        altura:this.forma.get('altura')!.value,
+        presion:this.forma.get('presion')!.value,
+        temperatura:this.forma.get('temperatura')!.value,
+        datosDinamicos: this.datosDinamicos
+      }
+      await this.turnosSrv.finalizar(this.turnoSeleccionado, this.forma.get('comentario')!.value, this.forma.get('diagnostico')!.value, datosHistorial).then(()=>
       {
         this.turnoSeleccionado = null
         this.diagnostico = ""
@@ -218,5 +191,53 @@ export class MisTurnosComponent implements OnInit {
     }
   }
 
+  hacerBusqueda() {
+
+    if (this.searchParam === "") {
+      if(this.auth.UsuarioActivo.perfil=="paciente")
+      {
+        this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.paciente.uid == this.auth.UsuarioActivo.uid )
+      }
+      else
+      {
+        this.turnosFiltrados = this.turnosSrv.turnos.filter(turno=> turno.especialista.uid == this.auth.UsuarioActivo.uid )
+      }
+      return;
+    }
+
+    const serachParamLower = this.searchParam.toLowerCase();
+    if(this.auth.UsuarioActivo.perfil=="paciente")
+      {
+        this.turnosFiltradosUsuario = this.turnosSrv.turnos.filter(turno=> turno.paciente.uid == this.auth.UsuarioActivo.uid )
+      }
+      else
+      {
+        this.turnosFiltradosUsuario = this.turnosSrv.turnos.filter(turno=> turno.especialista.uid == this.auth.UsuarioActivo.uid )
+      }
+    this.turnosFiltrados = this.turnosFiltradosUsuario.filter(turno => this.doSearch(turno, serachParamLower));
+  }
+
+  doSearch(value, searcher) {
+    if (typeof value === 'boolean') {
+      return false;
+    }
+
+    if (typeof value === 'object') {
+      for (let fieldKey in value) {
+        if (!this.estaEnLaListaNegraDeKeys(fieldKey) && this.doSearch(value[fieldKey], searcher)) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+
+    return (typeof value == "string" ? value.toLocaleLowerCase() : value.toString()).includes(searcher)
+  }
+
+  estaEnLaListaNegraDeKeys(key) {
+    return ["especialidades", "foto", "foto1", "foto2"].indexOf(key) != -1
+  }
 
 }

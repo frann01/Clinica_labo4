@@ -10,15 +10,63 @@
                 <p><b>DNI:</b>{{auth.UsuarioActivo.dni}} <b *ngIf="auth.UsuarioActivo.perfil=='paciente'" style="margin-left:10px"> OBRA SOCIAL: </b>{{auth.UsuarioActivo.obra}}</p>
                 <p><b>EMAIL: </b>{{auth.UsuarioActivo.email}} <b style="margin-left:10px"> EDAD: </b>{{auth.UsuarioActivo.edad}}</p>
                 <div *ngIf="auth.UsuarioActivo.perfil=='especialista'">
-                    <b>ESPECIALIDADES: </b>
-                    <p *ngFor="let espe of auth.UsuarioActivo.especialidades">{{espe}}</p> 
+                    <b>ESPECIALIDADES: {{especialidades}}</b>
                 </div>
+                <br>
                 <div *ngIf="auth.UsuarioActivo.perfil=='especialista'">
                     <b>HORARIOS DE ATENCION: </b>
                     <p style="text-align: center;">De <input type="number" [(ngModel)]="comienzo" placeholder="{{auth.UsuarioActivo.comienzoA}}"></p>
                     <p style="text-align: center;">A  <input type="number" [(ngModel)]="final" placeholder="{{auth.UsuarioActivo.finalA}}"></p>
                     <button class="boton" (click)="cambiarHorarios()">Cambiar horarios</button>
                 </div>
+
+                <div class="div_historiales" *ngIf="auth.UsuarioActivo.perfil=='paciente' && turnosFiltrados.length !=0">
+                    <div  class="historiales_card" *ngFor="let historial of turnosFiltrados">
+                        <div id="{{historial.fecha}}">
+                            <div>
+                                <img src="../../../assets/logos/icons8-caduceus-100.png" style="margin-left: auto; margin-right:auto; width:60px">
+                            </div>
+                            <br>
+                            <div style="display: flex;">
+                                
+                                <div class="col-sm-6">
+                                    <p><b>{{historial.paciente.nombre + " "+ historial.paciente.apellido}}</b></p>
+                                </div>
+
+                                <div class="col-sm-6" style="text-align: right;">
+                                    <p  style="text-align: right;" ><b> {{fecha}}</b></p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex;">
+                                <div class="col-sm-6">
+                                    <p ><b>Peso: {{historial.historial.peso }}</b></p>
+                                </div>
+
+                                <div class="col-sm-6" style="float: right;">
+                                    <p  style="text-align: right;"><b>Altura: {{historial.historial.altura}}</b></p>
+                                </div>
+                            </div>
+
+                            <div style="display: flex;">
+                                <div class="col-sm-6">
+                                    <p><b>Temperatura: {{historial.historial.temperatura }}</b></p>
+                                </div>
+
+                                <div class="col-sm-6" style="float: right;">
+                                    <p  style="text-align: right;"><b>Presion: {{historial.historial.presion}}</b></p>
+                                </div>
+                            </div>
+
+                            <div *ngFor="let datos of historial.historial.datosDinamicos">
+                                <p>{{datos.clave + ": " + datos.valor}}</p>
+                            </div>
+
+                        </div>
+                        <button class="boton" (click)="imprimirPdf(historial.fecha)">Imprimir PDF</button>
+                    </div>
+                </div>
+
             </div>
             <div class="div_right">
                 <div class="div_foto">

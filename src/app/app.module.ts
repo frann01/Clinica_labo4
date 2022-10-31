@@ -30,6 +30,7 @@ import { MisTurnosComponent } from './pages/mis-turnos/mis-turnos.component';
 import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno.component';
 import { TurnosComponent } from './pages/turnos/turnos.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { PacientesComponent } from './pages/pacientes/pacientes.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     MisTurnosComponent,
     SolicitarTurnoComponent,
     TurnosComponent,
+    PacientesComponent,
   ],
   imports: [
     BrowserModule,

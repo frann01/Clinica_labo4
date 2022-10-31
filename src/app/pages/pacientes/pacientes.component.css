@@ -18,6 +18,15 @@ html {
   backdrop-filter: blur(1px);
 }
 
+.card_historial
+{
+  background-color: darkcyan;
+  border-radius: 10px;
+  color:aliceblue;
+  padding: 4%;
+  margin-bottom: 3%;
+}
+
 .titulo
 {
   margin-top: 8px;
@@ -56,6 +65,8 @@ html {
 .div_filtro
 {
   position: absolute;
+  overflow-y: scroll;
+  height: 30rem;
   top: 0%;
   left: 28%;
   width: 30rem;

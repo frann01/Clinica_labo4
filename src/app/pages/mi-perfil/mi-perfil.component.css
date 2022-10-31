@@ -41,15 +41,41 @@ h1
 
 }
 
+.historiales_card
+{
+    width: 90%;
+    margin: 2%;
+    background-color: #8dc0da;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    padding: 5%;
+
+}
+
+.div_historiales
+{
+
+    width: 95%;
+    overflow-y: scroll;
+    height: 60%;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: gray;
+    border-width: 2px;
+}
+
 .div_left
 {
     margin-top: 2%;
+    max-height: 40rem;
     float: right;
     align-items: center;
     align-content: center;
     text-align: center;
     background-color:aliceblue;
-    padding: 5%;
+    padding: 5% 3% 2% 3%;
     width: 50%;
     margin-right: 5%;
     border-radius: 5px;
@@ -100,7 +126,7 @@ h1
     right: 11%;
     position: absolute;
     font-size: 2.5rem;
-    top: 65%;
+    top: 21rem;
     border-radius: 55%;
     height: 10rem;
     width: 10rem;

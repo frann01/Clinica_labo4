@@ -1,0 +1,87 @@
+<br>
+<br>
+
+<div id="formContent">
+    <h1>MIS PACIENTES</h1>
+    <br>
+    <input type="text" style="width: 40%;" placeholder="Buscar" (ngModelChange)="hacerBusqueda()" [(ngModel)]="searchParam">
+    <br>
+    <br>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>DNI</th>
+                <th>Edad</th>
+                <th>Obra Social</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <div style="text-align: center; width: 100%;" *ngIf="PacientesAtendidos.length == 0" ><h3 class="titulo" >No tiene pacientes</h3><br></div>
+
+        <tbody *ngFor="let paciente of PacientesAtendidos">
+            <tr>
+                <td>{{paciente.apellido +", "+ paciente.nombre}}</td>
+                <td>{{paciente.email}}</td>
+                <td>{{paciente.dni}}</td>
+                <td>{{paciente.edad}}</td>
+                <td>{{paciente.obra}}</td>
+                <td>
+                    <div style="display: flex;">
+                        <button class="boton_accion darkcyan" (click)="VerHistoriales(paciente.uid)">Historiales</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="div_fondo_filtro" *ngIf="mostrarHistoriales">
+        <div class="div_filtro">
+            <h3>Finalizar</h3>
+            <br>
+            
+            <div >
+
+                <div class="card_historial" *ngFor="let historial of historialesFiltrados">
+                    
+                    <div style="display: flex;">
+                        <div class="col-sm-6">
+                            <p><b>ALTURA</b></p>
+                            <p>{{historial.altura}}</p>
+                        </div>
+    
+                        <div class="col-sm-6" style="float: right;">
+                            <p><b>PESO (kg)</b></p>
+                            <p>{{historial.peso}}</p>
+
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex;">
+                        <div class="col-sm-6">
+                            <p><b>TEMPERATURA (ºc)</b></p>
+                            <p>{{historial.temperatura}}</p>
+
+                        </div>
+        
+                        <div class="col-sm-6" style="float: right;">
+                            <p><b>PRESION</b></p>
+                            <p>{{historial.presion}}</p>
+                        </div>
+                    </div>
+
+
+                    <div *ngFor="let dato of historial.datosDinamicos"><p>Clave: {{dato.clave}} Valor: {{dato.valor}}</p></div>
+                </div>
+                    
+            </div>
+            <button class="boton-Agregar" (click)="cerrarHistoriales()">Cerrar</button>
+            
+        </div>
+    </div>
+
+
+
+
+ </div>

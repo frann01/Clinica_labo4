@@ -13,7 +13,7 @@ html {
 
 body {
     font-family: "Poppins", sans-serif;
-    min-height:94vh;
+    min-height:120vh;
     background-image: url('../../../assets/img/nurse.jpg');
     background-repeat: no-repeat;
     background-size: cover;

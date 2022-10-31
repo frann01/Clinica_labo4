@@ -92,13 +92,14 @@ export class TurnosSrvService {
     })
   }
 
-  async finalizar(turno:any, comentario:string, diagnostico:string)
+  async finalizar(turno:any, comentario:string, diagnostico:string, historial:any)
   {
     await this.afs.collection('turnos').doc(turno.uid).update({
 
       estado:"finalizado",
       comentario_especialista:comentario,
-      diagnostico:diagnostico
+      diagnostico:diagnostico,
+      historial:historial
 
     }).catch((err)=>
     {

@@ -3,9 +3,9 @@
 
 <div id="formContent">
     <h1>MIS TURNOS</h1>
-    <div style="width: 100%;">
-        <button class="boton-filtrar " (click)="MostrarFiltro()">FILTRAR</button>
-    </div>
+    <br>
+    <input type="text" style="width: 40%;" placeholder="Buscar" (ngModelChange)="hacerBusqueda()" [(ngModel)]="searchParam">
+    <br>
     <br>
     <table class="table table-striped">
         <thead>
@@ -42,49 +42,69 @@
         </tbody>
     </table>
 
-    
-    <div class="div_fondo_filtro" *ngIf="mostrarFiltro">
-        <div class="div_filtro">
-            <h3>FILTRAR</h3>
-
-            <div style="width: 100%; height:100%" *ngIf="mostrarSelector">
-                <div class="gridTurnos" style="display: flex;">
-                    <button class="boton-filtro " (click)="MostrarFiltroEspecialidades()">ESPECIALIDAD</button>
-                    <button class="boton-filtro " (click)="MostrarFiltroEspecialistas()">ESPECIALISTA</button>
-                    <button class="boton-filtro " (click)="QuitarFiltros()">QUITAR FILTROS</button>
-                </div>
-            </div>
-            
-            <div style="width: 100%; height:100%" *ngIf="mostrarFiltroEspecialistas">
-                <div class="gridTurnos" style="display: flex;">
-                    <button *ngFor="let especialista of auth.especialistas" (click)="SeleccionarFiltroEspecialista(especialista.uid)" class="boton-filtro " >{{especialista.apellido + ", " + especialista.nombre}}</button>
-                </div>
-            </div>
-
-            <div style="width: 100%; height:100%" *ngIf="mostrarFiltroEspecialidades">
-                <div class="gridTurnos" style="display: flex;">
-                    <button *ngFor="let especialidad of base.especialidades" (click)="SeleccionarFiltroEspecialidades(especialidad.nombre)" class="boton-filtro ">{{especialidad.nombre}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="div_fondo_filtro" *ngIf="mostrarFinalizar">
         <div class="div_filtro">
             <h3>Finalizar</h3>
             <br>
-
-            <div style="width: 100%; height:100%">
-                <h4>DIAGNOSTICO</h4>
-                <input type="text" [(ngModel)]="diagnostico">
-                <br>
-                <br>
-
-                <h4>COMENTARIO</h4>
-                <input type="text" [(ngModel)]="comentario">
-                <br>
-                <button class="boton-Agregar" (click)="Finalizar()">Finalizar Turno</button>
+            
+            <div style="width: 100%; height:100%;">
+                <form [formGroup]="forma" (ngSubmit)="Finalizar()">
+                    <div style="display: flex;">
+                        <div class="col-sm-6">
+                            <p><b>DIAGNOSTICO</b></p>
+                            <input type="text" formControlName="diagnostico">    
+                        </div>
+    
+                        <div class="col-sm-6">
+                            <p><b>COMENTARIO</b></p>
+                            <input type="text" formControlName="comentario">
+                        </div>
+                    </div>
+                                
+                    
+    
+                    <div style="display: flex;">
+                        <div class="col-sm-6">
+                            <p><b>ALTURA</b></p>
+                            <input type="number" formControlName="altura">
+                        </div>
+    
+                        <div class="col-sm-6" style="float: right;">
+                            <p><b>PESO (kg)</b></p>
+                            <input type="number" formControlName="peso">
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex;">
+                        <div class="col-sm-6">
+                            <p><b>TEMPERATURA (ºc)</b></p>
+                            <input type="number" formControlName="temperatura">
+                        </div>
+        
+                        <div class="col-sm-6" style="float: right;">
+                            <p><b>PRESION</b></p>
+                            <input type="number" formControlName="presion">
+                        </div>
+                    </div>
+    
+                    <div style="display: flex;">
+                        <div class="col-sm-6">
+                            <p><b>CLAVE</b></p>
+                            <input formControlName="clave">
+                        </div>
+        
+                        <div class="col-sm-6" style="float: right;">
+                            <p><b>VALOR</b></p>
+                            <input formControlName="valor">
+                        </div>
+                    </div>
+                    <div><button type="button" (click)="agregarDatosDinamicos()" [disabled]="forma.get('clave')!.value=='' || forma.get('valor')!.value=='' || datosDinamicos.length == 3" class="boton_dinamico"></button></div>
+                    <div *ngFor="let dato of datosDinamicos"><p>Clave: {{dato.clave}} Valor: {{dato.valor}}</p></div>
+                    <button class="boton-Agregar" >Finalizar Turno</button>
+                </form>
             </div>
+            
+            
         </div>
     </div>
 

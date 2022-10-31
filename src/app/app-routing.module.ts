@@ -20,7 +20,7 @@ import { MiPerfilComponent } from './pages/mi-perfil/mi-perfil.component';
 import { TurnosComponent } from './pages/turnos/turnos.component';
 import { NoAdminGuard } from './guards/no-admin.guard';
 import { NoEspecialistaGuard } from './guards/no-especialista.guard';
-
+import { PacientesComponent } from './pages/pacientes/pacientes.component';
 
 
 const routes: Routes = [
@@ -46,7 +46,8 @@ const routes: Routes = [
     {path:'mi-perfil', component: MiPerfilComponent},
     {path:'mis-turnos', component: MisTurnosComponent, canActivate:[NoAdminGuard]},
     {path:'sacar-turno', component: SolicitarTurnoComponent, canActivate:[NoEspecialistaGuard, NoAdminGuard]},
-    {path:'turnos', component: TurnosComponent, canActivate:[AdminGuard]}
+    {path:'turnos', component: TurnosComponent, canActivate:[AdminGuard]},
+    {path:'pacientes', component: PacientesComponent, canActivate:[EspecialistaGuard]}
   ]}
 ];
 
