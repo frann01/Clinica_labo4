@@ -21,7 +21,6 @@
 <h1 align="center"> PACIENTES </h1>
 <br>
 
- <hr>
 <h3 align="center">BIENVENIDA</h3>
 <p align="center">Al ingresar al sitio se nos presentara la pantalla de bienvenida donde podemos encontrar todas las secciones que tenemos disponibles</p>
 <p align="center">
@@ -50,6 +49,30 @@
 </p>
 
 
+<br>
+<h1 align="center"> ESPECIALISTAS </h1>
+<br>
+
+ <hr>
+<h3 align="center">PACIENTES</h3>
+<p align="center">En estas seccion encontraremos todos los pacientes que atendimos en forma de botones, que al presionar nos mostrara todos los turnos de ese paciente. </p>
+<p align="center">
+  <img align="center" src="https://user-images.githubusercontent.com/67615886/200975906-358c8256-90e4-4327-b509-37be855a64bb.gif" style='width: 700px; max-width: 100%;'>
+</p>
+
+
+ <hr>
+<h3 align="center">MIS TURNOS</h3>
+<p align="center">Aqui podemos organizar nuestros turnos rechazarlos, aceptarlos, cancelarloso finalizarlos correspondientemente. </p>
+<p align="center">
+  <img align="center" src="https://user-images.githubusercontent.com/67615886/200976326-5198d1ea-2c5d-406a-8a5e-50f80612a3bd.PNG" style='width: 700px; max-width: 100%;'>
+</p>
+
+
+<p align="center">En el siguiente videeo vemos como podemos finalizar un turno. </p>
+<p align="center">
+  https://user-images.githubusercontent.com/67615886/200976168-4afaf19d-74a4-49f4-92f9-28260d090017.mp4
+</p>
 
 
 
