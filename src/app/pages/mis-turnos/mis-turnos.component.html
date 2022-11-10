@@ -20,12 +20,12 @@
         </thead>
         <div style="text-align: center; width: 100%;" *ngIf="turnosFiltrados.length == 0"><h3 class="titulo" >No tiene turnos</h3><br></div>
 
-        <tbody *ngFor="let turno of turnosFiltrados">
+        <tbody [appColorTurnos]="turno.estado" *ngFor="let turno of turnosFiltrados">
             <tr>
                 <td>{{turno.especialidad}}</td>
                 <td  *ngIf="auth.UsuarioActivo.perfil=='paciente'">{{turno.especialista.apellido +", "+ turno.especialista.nombre}}</td>
                 <td  *ngIf="auth.UsuarioActivo.perfil=='especialista'">{{turno.paciente.apellido +", "+ turno.paciente.nombre}}</td>
-                <td>{{turno.fecha}}</td>
+                <td>{{turno.fecha | formatoFecha}}</td>
                 <td>{{turno.estado}}</td>
                 <td>
                     <div style="display: flex;">

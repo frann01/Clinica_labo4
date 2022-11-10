@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class TurnosSrvService {
 
   private Turnos?: AngularFirestoreCollection<any>;
+  private Turnos2?: AngularFirestoreCollection<any>;
   public turnos: any[] = [];
   promiseTurnos:Subscription
 
@@ -108,6 +109,12 @@ export class TurnosSrvService {
     {
       this.toastr.success("Turno finalizado!", 'Exito');
     })
+  }
+
+  traerTurnosSus()
+  {
+    const coleccion = this.afs.collection('usuarios');
+    return coleccion.valueChanges();
   }
 
   async calificar(turno:any, comentario:string)

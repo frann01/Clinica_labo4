@@ -2,12 +2,12 @@
 <br>
 
 <div id="formContent">
-    <h1>MIS PACIENTES</h1>
+    <h1 [appSubTitulos]="">MIS PACIENTES</h1>
     <br>
-    <input type="text" style="width: 40%;" placeholder="Buscar" (ngModelChange)="hacerBusqueda()" [(ngModel)]="searchParam">
+    <input *ngIf="false" type="text" style="width: 40%;" placeholder="Buscar" (ngModelChange)="hacerBusqueda()" [(ngModel)]="searchParam">
     <br>
     <br>
-    <table class="table table-striped">
+    <table *ngIf="false" class="table table-striped">
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -36,9 +36,44 @@
         </tbody>
     </table>
 
+    <table *ngIf="mostrarTurnos" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Especialidad</th>
+                <th>Paciente</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <div style="text-align: center; width: 100%;" *ngIf="turnosFiltradosUsuario.length == 0"><h3 class="titulo" >No tiene turnos</h3><br></div>
+
+        <tbody *ngFor="let turno of turnosFiltradosUsuario">
+            <tr>
+                <td>{{turno.especialidad}}</td>
+                <td>{{turno.paciente.apellido +", "+ turno.paciente.nombre}}</td>
+                <td>{{turno.fecha}}</td>
+                <td>{{turno.estado}}</td>
+                <td>
+                    <div style="display: flex;">
+                        <button class="boton_accion celeste" *ngIf="turno.comentario_usuario != ''" (click)="MostrarResena(turno)">Reseña</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="div_botones gridTurnos2">
+        <div style="display: block;" *ngFor="let usuario of PacientesAtendidos">
+            <button  (click)="VerTurnos(usuario)"
+            class="boton_usuario" style="background-image: url({{usuario.foto}});"></button>
+            <b>{{usuario.nombre+" "+usuario.apellido}}</b>
+        </div>
+        
+    </div>
+
     <div class="div_fondo_filtro" *ngIf="mostrarHistoriales">
         <div class="div_filtro">
-            <h3>Finalizar</h3>
+            <h3>Historiales</h3>
             <br>
             
             <div >
@@ -72,7 +107,7 @@
                     </div>
 
 
-                    <div *ngFor="let dato of historial.datosDinamicos"><p>Clave: {{dato.clave}} Valor: {{dato.valor}}</p></div>
+                    <div *ngFor="let dato of historial.datosDinamicos"><p>{{dato.clave}}: {{dato.valor}}</p></div>
                 </div>
                     
             </div>
@@ -81,7 +116,20 @@
         </div>
     </div>
 
+    <div class="div_fondo_filtro" *ngIf="mostrarResena">
+        <div class="div_filtro2">
+            <h3>Reseña</h3>
+            <br>
+            <div style="text-align: center;">
+                <div style="text-align: center;">
+                    <p><b>Reseña de la paciente</b></p>
+                    <p>{{TurnoSeleccionado.comentario_usuario}}</p>
+                </div>
+            </div>
 
 
-
+            <button class="boton-Agregar" (click)="CerrarResena()">Cerrar</button>
+            
+        </div>
+    </div>
  </div>

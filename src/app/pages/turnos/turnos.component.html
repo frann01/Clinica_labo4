@@ -2,7 +2,7 @@
 <br>
 
 <div id="formContent">
-    <h1>TURNOS</h1>
+    <h1 [appSubTitulos]="" >TURNOS</h1>
     <br>
     <input type="text" style="width: 40%;" placeholder="Buscar" (ngModelChange)="hacerBusqueda()" [(ngModel)]="searchParam">
     <br>
@@ -18,12 +18,12 @@
                 <th>Acciones</th>
             </tr>
         </thead>
-        <tbody *ngFor="let turno of turnosFiltrados">
+        <tbody [appColorTurnos]="turno.estado" *ngFor="let turno of turnosFiltrados">
             <tr>
                 <td>{{turno.especialidad}}</td>
                 <td>{{turno.especialista.apellido +", "+ turno.especialista.nombre}}</td>
                 <td>{{turno.paciente.apellido +", "+ turno.paciente.nombre}}</td>
-                <td>{{turno.fecha}}</td>
+                <td>{{turno.fecha | formatoFecha}}</td>
                 <td>{{turno.estado}}</td>
                 <td>
                     <div style="display: flex;">

@@ -5,7 +5,8 @@ import { TurnosSrvService } from 'src/app/services/turnos-srv.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas'; 
 import { AnimateTimings } from '@angular/animations';
-
+import { Workbook } from 'exceljs';
+import * as fs from 'file-saver';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -18,6 +19,8 @@ export class MiPerfilComponent implements OnInit {
    }
 
   turnosFiltrados:any[];
+  turnosFiltradosEspe:any[];
+
   comienzo:number;
   final:number
   especialidades="";
@@ -107,6 +110,38 @@ export class MiPerfilComponent implements OnInit {
       });
   }
 
+  
+  generarExcelEspecialista(usuario:any)
+  {
+    this.filtrarTurnos(usuario)
+    let workbook = new Workbook();
 
+    let worksheet = workbook.addWorksheet("Turnos con " + usuario.nombre + " " +usuario.apellido);
+
+    let header = ["Fecha", "Especialidad", "Especialista", "estado", "diagnostico", "comentario"];
+    let headerRow = worksheet.addRow(header);
+
+    for (let item of this.turnosFiltradosEspe) {
+      let aux = [item.fecha,
+          item.especialidad ,
+          item.especialista.apellido +", "+ item.especialista.nombre,
+          item.estado, item.diagnostico,
+          item.comentario_especialista ];
+
+      worksheet.addRow(aux);
+    }
+
+    let fname = "Turnos con " + usuario.nombre + " " +usuario.apellido;
+
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      fs.saveAs(blob, fname + '.xlsx');
+    });
+  }
+
+  filtrarTurnos(espe:any)
+  {
+    this.turnosFiltradosEspe = this.turnosSrv.turnos.filter(turno=> turno.paciente.uid == this.auth.UsuarioActivo.uid && turno.especialista.uid == espe.uid && turno.estado == "finalizado")
+  }
 
 }

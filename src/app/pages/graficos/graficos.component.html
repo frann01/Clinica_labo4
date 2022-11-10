@@ -1,0 +1,53 @@
+<br>
+<br>
+
+<div id="formContent">
+    <h1 [appSubTitulos]="">INFORMACION</h1>
+    <mdb-carousel [dark]="true" [interval]=0 [controls]="true" [indicators]="false" [animation]="'slide'">
+
+        <mdb-carousel-item class="div_grafico" >
+            <h3>Turnos por día</h3>
+            <canvas  id="graficoDias"></canvas>
+            <button *ngIf="mostrar" class="boton" (click)="imprimirPdf('graficoDias')">IMPRIMIR PDF</button>
+
+        </mdb-carousel-item>
+
+        <mdb-carousel-item class="div_grafico" >
+            <h3>Turnos por especialidad</h3>
+            <canvas id="graficoEspecialidad"></canvas>
+            <button *ngIf="mostrar" class="boton" (click)="imprimirPdf('graficoEspecialidad')">IMPRIMIR PDF</button>
+        </mdb-carousel-item>
+
+        <mdb-carousel-item class="div_grafico" >
+            <h3>Turnos por especialista</h3>
+            <canvas id="graficoMedico"></canvas>
+            <button *ngIf="mostrar" class="boton" (click)="imprimirPdf('graficoMedico')">IMPRIMIR PDF</button>
+        </mdb-carousel-item>
+
+        <mdb-carousel-item class="div_grafico" >
+            <h3>Inicios de sesion</h3>
+            <div class="div_tabla">
+                <table  id="tablaIngresos" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th >Perfil</th>
+                            <th >Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let ingreso of auth.ingresos">
+                        <tr>
+                            <td>{{ingreso.usuario}}</td>
+                            <td>{{ingreso.perfil | perfil}}</td>
+                            <td>{{ingreso.fecha | formatoFecha}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <button *ngIf="mostrar" class="boton" (click)="imprimirPdf('tablaIngresos')">IMPRIMIR PDF</button>
+        </mdb-carousel-item>
+
+    </mdb-carousel>
+
+ </div>

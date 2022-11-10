@@ -48,6 +48,9 @@ export class PacientesComponent implements OnInit {
   searchParam:string="";
   mostrarHistoriales=false;
   historialesFiltrados:any[]=[]
+  mostrarTurnos=false;
+  mostrarResena=false;
+  TurnoSeleccionado=null
 
   VerHistoriales(uidPaciente:string)
   {
@@ -58,6 +61,25 @@ export class PacientesComponent implements OnInit {
       }
     });
     this.mostrarHistoriales = true
+  }
+
+  VerTurnos(paciente:any)
+  {
+    this.turnosFiltradosUsuario = []
+    this.turnosFiltradosUsuario = this.turnosFiltrados.filter(turno=> turno.paciente.uid == paciente.uid)
+    this.mostrarTurnos = true
+  }
+
+  MostrarResena(turno:any)
+  {
+    this.TurnoSeleccionado = turno;
+    this.mostrarResena = true
+  }
+
+  CerrarResena()
+  {
+    this.TurnoSeleccionado = null;
+    this.mostrarResena = false
   }
 
   cerrarHistoriales()

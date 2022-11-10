@@ -3,26 +3,12 @@
     <button class="boton-Agregar center" (click)="generarExcel()">Generar Excel</button>
 
 </div>
-<table class="table table-striped ">
-    <thead>
-        <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Email</th>
-            <th>Edad</th>
-            <th>Perfil</th>
-            <th>Foto</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let usuario of auth.usuarios">
-            <td>{{usuario.nombre}}</td>
-            <td>{{usuario.apellido}}</td>
-            <td>{{usuario.email}}</td>
-            <td>{{usuario.edad}}</td>
-            <td>{{usuario.perfil}}</td>
-            <td><img src="{{usuario.foto}}" style="width: 90px;"></td>
-        </tr>
-    </tbody>
-</table>
+<div class="div_botones gridTurnos">
+    <div  *ngFor="let usuario of auth.pacientes">
+        <button  (click)="generarExcelUsuario(usuario)" 
+        class="boton_usuario" style="background-image: url({{usuario.foto}});"></button>
+        <b>{{usuario.nombre+" "+usuario.apellido}}</b>
+    </div>
+    
+</div>
 

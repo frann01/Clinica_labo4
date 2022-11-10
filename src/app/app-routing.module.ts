@@ -21,7 +21,7 @@ import { TurnosComponent } from './pages/turnos/turnos.component';
 import { NoAdminGuard } from './guards/no-admin.guard';
 import { NoEspecialistaGuard } from './guards/no-especialista.guard';
 import { PacientesComponent } from './pages/pacientes/pacientes.component';
-
+import { GraficosComponent } from './pages/graficos/graficos.component';
 
 const routes: Routes = [
   {path:'', component: LogRegBaseComponent, children:[
@@ -36,18 +36,20 @@ const routes: Routes = [
 
   {path:'inicio', component: InicioComponent, canActivate:[LoginGuard,EspecialistaGuard], children:
   [
-    {path:'usuarios', component: UsuariosComponent, canActivate:[AdminGuard], children:[
+    {path:'usuarios', component: UsuariosComponent,data: { animation: 'Usuarios' }, canActivate:[AdminGuard], children:[
       {path:'usuario-registrar', component: RegisterComponent},
       {path:'admin-registrar', component: RegisterAdminComponent},
       {path:'especialista-registrar', component: RegistroEspecialistaComponent},
       {path:'listado', component: ListadoUsuariosComponent}
     ]},
-    {path:'', component: BienvenidaComponent},
-    {path:'mi-perfil', component: MiPerfilComponent},
-    {path:'mis-turnos', component: MisTurnosComponent, canActivate:[NoAdminGuard]},
+    {path:'', component: BienvenidaComponent,data: { animation: 'Bienvenida' }},
+    {path:'mi-perfil', component: MiPerfilComponent,data: { animation: 'MiPerfil' }},
+    {path:'mis-turnos', component: MisTurnosComponent, canActivate:[NoAdminGuard],data: { animation: 'MisTurnos' }},
     {path:'sacar-turno', component: SolicitarTurnoComponent, canActivate:[NoEspecialistaGuard, NoAdminGuard]},
     {path:'turnos', component: TurnosComponent, canActivate:[AdminGuard]},
-    {path:'pacientes', component: PacientesComponent, canActivate:[EspecialistaGuard]}
+    {path:'pacientes', component: PacientesComponent, canActivate:[EspecialistaGuard]},
+    {path:'graficos', component: GraficosComponent, canActivate:[AdminGuard]},
+
   ]}
 ];
 

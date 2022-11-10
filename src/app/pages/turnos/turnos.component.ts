@@ -14,7 +14,7 @@ export class TurnosComponent implements OnInit {
 
   constructor(private toastr: ToastrService,public base : BaseDatosService, public turnosSrv : TurnosSrvService, public auth : AuthService) { }
 
-  turnosFiltrados:any[];
+  turnosFiltrados:any[] = null;
 
   mostrarFiltro:boolean=false;
   mostrarSelector:boolean=false
@@ -29,8 +29,8 @@ export class TurnosComponent implements OnInit {
   mostrarCancelar:boolean=false;
 
   ngOnInit(): void {
+
     this.turnosFiltrados = this.turnosSrv.turnos
-    console.log(this.auth.pacientes)
   }
 
 
@@ -53,6 +53,7 @@ export class TurnosComponent implements OnInit {
       {
         this.mostrarCancelar = false;
         this.turnoSeleccionado = null
+        this.turnosFiltrados = this.turnosSrv.turnos
       })
     }
     

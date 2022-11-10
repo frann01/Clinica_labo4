@@ -21,6 +21,7 @@ export class AuthService {
   promiseUsuario:Subscription
   promiseUsuarios:Subscription
   promisePacientes:Subscription
+  promiseIngresos:Subscription
 
   promiseEspecialistas:Subscription
   promiseNoAprobados:Subscription
@@ -30,6 +31,9 @@ export class AuthService {
 
   private noAprobados?: AngularFirestoreCollection<any>;
   public noAprobadosA= [];
+
+  private Ingresos?: AngularFirestoreCollection<any>;
+  public ingresos= [];
 
   private UsuariosColeccion?: AngularFirestoreCollection<any>;
   public usuarios: any[] = [];
@@ -51,6 +55,7 @@ export class AuthService {
     this.ObtenerNoAprobados()
     this.traerUsuarios()
     this.traerPacientes()
+    this.traerIngresos()
   }
 
   traerUsuarios()
@@ -61,6 +66,15 @@ export class AuthService {
         this.usuarios=usuarios;
 
 
+      })
+  }
+
+  traerIngresos()
+  {
+    this.Ingresos = this.afs.collection<any>('Ingresos');
+    this.promiseIngresos=  this.Ingresos.valueChanges().subscribe(ingresos =>
+      {
+        this.ingresos=ingresos;
       })
   }
   
@@ -74,6 +88,7 @@ export class AuthService {
     {
       this.promiseUsuario = await this.afs.collection('usuarios').doc(this.uidUser).valueChanges().subscribe(async (usuario) =>{
           this.UsuarioActivo = usuario
+          this.agregarLogin(usuario)
         });
     }
 
@@ -331,6 +346,18 @@ export class AuthService {
   Unsubscriber()
   {
     this.promiseUsuario.unsubscribe()
+  }
+
+  agregarLogin(user : any)
+  {
+    var login = 
+    {
+      usuario:user.apellido+", "+user.nombre,
+      perfil:user.perfil,
+      fecha:this.formatDate(new Date())
+    }
+
+    this.afs.collection('Ingresos').add(login)
   }
 
 }

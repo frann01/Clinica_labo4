@@ -3,7 +3,7 @@
 
 <div id="formContent">
     <br>
-    <h1>SACAR TURNO</h1>
+    <h1 [appSubTitulos]="" >SACAR TURNO</h1>
 
 
     <div class="div_especialidad" *ngIf="flag_especialidad">
@@ -39,7 +39,7 @@
             <h3>FECHA Y HORARIO</h3>
         </div>
         <div class="div_botones gridTurnos">
-            <button *ngFor="let turno of turnos" (click)="seleccionarTurno(turno)" class="boton_turno">{{turno}}</button>
+            <button *ngFor="let turno of turnos" (click)="seleccionarTurno(turno)" class="boton_turno">{{turno | formatoFecha}}</button>
         </div>
     </div>
 

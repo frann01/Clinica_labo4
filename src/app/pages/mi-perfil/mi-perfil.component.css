@@ -1,8 +1,40 @@
-body{
-    -webkit-animation:slide-in-top 1s cubic-bezier(.25,.46,.45,.94) both;
-    animation:slide-in-top 1s cubic-bezier(.25,.46,.45,.94) both;
+.div_botones
+{
+    width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr [col-start]);
+    margin:auto;
 }
-@-webkit-keyframes slide-in-top{0%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}@keyframes slide-in-top{0%{-webkit-transform:translateY(-1000px);transform:translateY(-1000px);opacity:0}100%{-webkit-transform:translateY(0);transform:translateY(0);opacity:1}}
+
+.gridTurnos {
+    overflow-y:scroll;
+    max-height: 350px;
+  }
+
+.boton_usuario
+{
+    background-color: #56baed;
+    color: aliceblue;
+    font-weight: 500;
+    font-size: small;
+    transition: all 0.3s ease 0s;
+    padding: 5%;
+    margin: 3px;
+    border-width: 2px;
+    border-radius: 10px;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: all 0.3s ease 0s;
+}
+.boton_usuario:hover
+{
+    transform: translateY(-7px);
+    background-color: #1680be;
+}
 
 body
 {
@@ -35,7 +67,6 @@ h1
     align-items: center;
     align-content: center;
     text-align: center;
-    background-color: darkcyan;
     width: 50%;
     border-radius: 5px;
 

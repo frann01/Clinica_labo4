@@ -17,10 +17,7 @@ export class BaseDatosService {
     this.itemsCollection = this.afs.collection<any>('especialidades');
     return this.itemsCollection.valueChanges().subscribe(especialidades =>
       {
-        this.especialidades=[];
-        especialidades.forEach(esp => {
-          this.especialidades.push(esp);
-        });
+        this.especialidades=especialidades;
       })
   }
 

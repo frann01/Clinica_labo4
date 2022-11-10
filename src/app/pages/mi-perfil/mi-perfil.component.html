@@ -1,7 +1,7 @@
 <body>
     <div class="div_mayor">
         <div class="div_titulo">
-            <h1>MI PERFIL</h1>
+            <h1 [appSubTitulos]="" >MI PERFIL</h1>
         </div>
         <div style="display:flex ;">
             <div class="div_left">
@@ -18,6 +18,12 @@
                     <p style="text-align: center;">De <input type="number" [(ngModel)]="comienzo" placeholder="{{auth.UsuarioActivo.comienzoA}}"></p>
                     <p style="text-align: center;">A  <input type="number" [(ngModel)]="final" placeholder="{{auth.UsuarioActivo.finalA}}"></p>
                     <button class="boton" (click)="cambiarHorarios()">Cambiar horarios</button>
+                </div>
+
+                <div class="div_botones gridTurnos" *ngIf="auth.UsuarioActivo.perfil=='paciente' && turnosFiltrados.length !=0">
+                    <div *ngFor="let usuario of auth.especialistas">
+                        <button (click)="generarExcelEspecialista(usuario)"  class="boton_usuario">{{usuario.nombre+" "+usuario.apellido}}</button>
+                    </div>
                 </div>
 
                 <div class="div_historiales" *ngIf="auth.UsuarioActivo.perfil=='paciente' && turnosFiltrados.length !=0">
@@ -68,7 +74,7 @@
                 </div>
 
             </div>
-            <div class="div_right">
+            <div [appColorMiPerfil]="auth.UsuarioActivo.perfil" class="div_right">
                 <div class="div_foto">
                     <img class="img" src="{{auth.UsuarioActivo.foto}}">
                     <img *ngIf="auth.UsuarioActivo.perfil=='paciente'" class="img_2" src="{{auth.UsuarioActivo.foto2}}">

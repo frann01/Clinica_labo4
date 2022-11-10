@@ -32,6 +32,44 @@ html {
   margin-top: 8px;
 }
 
+.div_botones
+{
+    width: 100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr [col-start]);
+    margin:auto;
+}
+
+.gridTurnos2 {
+    overflow-y:scroll;
+    max-height: 350px;
+  }
+
+.boton_usuario
+{
+    background-color: #56baed;
+    color: aliceblue;
+    font-weight: 500;
+    font-size: small;
+    transition: all 0.3s ease 0s;
+    padding: 10%;
+    margin: 3px;
+    border-width: 1px;
+    border-radius: 50%;
+    display: inline-block;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: all 0.3s ease 0s;
+
+}
+.boton_usuario:hover
+{
+    transform: translateY(-15px);
+}
+
 .gridTurnos
 {
   max-width: 600rem;
@@ -81,6 +119,24 @@ html {
   border-width: 1.5px;
 
 
+}
+
+.div_filtro2
+{
+  position: absolute;
+  overflow-y: scroll;
+  top: 0%;
+  left: 28%;
+  width: 30rem;
+  padding: 2%;
+  background-color: aliceblue;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  border-style: solid;
+  border-width: 1.5px;
 }
 
 .boton_dinamico

@@ -31,6 +31,12 @@ import { SolicitarTurnoComponent } from './pages/solicitar-turno/solicitar-turno
 import { TurnosComponent } from './pages/turnos/turnos.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { PacientesComponent } from './pages/pacientes/pacientes.component';
+import { GraficosComponent } from './pages/graficos/graficos.component';
+import { MdbCarouselModule } from 'mdb-angular-ui-kit/carousel';
+import { FormatoFechaPipe } from './pipes/formato-fecha.pipe';
+import { ColorMiPerfilDirective } from './directivas/color-mi-perfil.directive';
+import { ColorTurnosDirective } from './directivas/color-turnos.directive';
+import { SubTitulosDirective } from './directivas/sub-titulos.directive';
 
 
 @NgModule({
@@ -56,6 +62,11 @@ import { PacientesComponent } from './pages/pacientes/pacientes.component';
     SolicitarTurnoComponent,
     TurnosComponent,
     PacientesComponent,
+    GraficosComponent,
+    FormatoFechaPipe,
+    ColorMiPerfilDirective,
+    ColorTurnosDirective,
+    SubTitulosDirective,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +79,8 @@ import { PacientesComponent } from './pages/pacientes/pacientes.component';
      AngularFireAuthModule,
      provideFirestore(() => getFirestore()),
     ReactiveFormsModule,
-    NgxCaptchaModule
+    NgxCaptchaModule,
+    MdbCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
